@@ -1,0 +1,1366 @@
+/* ДРЦ «Рябинка» — один файл стилей. Телефон сначала (360–430), затем 720 и 1024+. */
+
+/* ---------- Шрифты (свои woff2, кириллица) ---------- */
+@font-face {
+  font-family: "M PLUS Rounded 1c";
+  src: url("../assets/fonts/mplusrounded1c-800-cyrillic.woff2") format("woff2");
+  font-weight: 800; font-style: normal; font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "M PLUS Rounded 1c";
+  src: url("../assets/fonts/mplusrounded1c-800-latin.woff2") format("woff2");
+  font-weight: 800; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Golos Text";
+  src: url("../assets/fonts/golostext-var-cyrillic.woff2") format("woff2");
+  font-weight: 400 900; font-style: normal; font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Golos Text";
+  src: url("../assets/fonts/golostext-var-latin.woff2") format("woff2");
+  font-weight: 400 900; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Golos Text";
+  src: url("../assets/fonts/golostext-var-latin-ext.woff2") format("woff2");
+  font-weight: 400 900; font-style: normal; font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---------- Токены ---------- */
+:root {
+  /* светлый тёплый ковёр */
+  --rug-1: #efe0c2;
+  --rug-2: #f6ecd8;
+  --rug-3: #efdcb4;
+  --clearing: #fdf8ee;
+  --road: #b0aaa1;
+  --road-edge: #9a948b;
+  --road-kerb: #fbf8f2;
+  --road-line: #ffffff;
+  --grass: #a8c98d;
+  --grass-deep: #86ad6e;
+  --water: #a9d3dc;
+  --toy-red: #c2331d;
+  --toy-red-deep: #a82a17;
+  --toy-yellow: #f4b52e;
+  --toy-yellow-deep: #b9790f;
+  --toy-blue: #3f78b5;
+  --felt: #b4462b;
+  --board: #2f6a52;
+  --ink: #3a2414;
+  --ink-soft: #6b4a32;
+  --ink-dark: #2a170d;
+  --cream: #fffaf0;
+  --stitch: #ffe9c7;
+
+  --font-display: "M PLUS Rounded 1c", "Golos Text", ui-rounded, sans-serif;
+  --font-body: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 36px;
+  --space-7: 56px;
+  --space-8: 72px;
+  /* отступы между секциями: одно место */
+  --sec-s: 72px;
+  --sec-m: 84px;
+  --sec-l: 108px;
+
+  --gutter: 16px;
+  --lane-pad: 72px;
+  --road-w: 50px;
+  --wrap: 100%;
+  --tile: 600px;
+
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --shadow-soft: 0 14px 26px -14px rgba(90, 58, 30, .45), 0 3px 6px rgba(90, 58, 30, .14);
+  --shadow-extrude-name: 0 .03em 0 var(--toy-red-deep), 0 .06em 0 #7d1f10, 0 .16em .2em rgba(90, 50, 20, .25);
+  --shadow-extrude-red: 0 2px 0 var(--toy-red-deep), 0 4px 0 #7d1f10, 0 10px 14px rgba(90, 50, 20, .22);
+
+  /* ворс поверх ковра */
+  --pile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15 .36' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .97 0 0 0 0 .9 0 0 0 1.45 -.76'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --pile-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='m' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.62 .24' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .3 0 0 0 0 .18 0 0 0 1.7 -.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+}
+
+/* ---------- База ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--rug-2);
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scrollbar-color: var(--grass-deep) var(--rug-1);
+}
+html.is-locked { overflow: hidden; }
+
+body {
+  margin: 0;
+  background: var(--rug-2);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  caret-color: var(--toy-red);
+}
+
+::selection { background: var(--toy-yellow); color: var(--ink-dark); }
+
+::-webkit-scrollbar { width: 12px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--rug-1); }
+::-webkit-scrollbar-thumb { background: var(--grass-deep); border-radius: 12px; border: 3px solid var(--rug-1); }
+
+img { display: block; max-width: 100%; height: auto; }
+img.is-missing { visibility: hidden; }
+picture { display: contents; }
+
+a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 2px; }
+a:hover { text-decoration-color: var(--toy-red); }
+
+:focus-visible {
+  outline: 3px dashed var(--toy-red-deep);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+h1, h2, h3, p { margin: 0; }
+
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.icon {
+  width: 24px; height: 24px;
+  fill: none; stroke: currentColor; stroke-width: 2.2;
+  stroke-linecap: round; stroke-linejoin: round;
+  flex: none;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.art {
+  width: 100%;
+  object-fit: contain;
+}
+
+/* Живые картинки на странице: светлая основа картинки растворяется в ковре к краям */
+.stop__art .art,
+.party__art .art,
+.care__art .art,
+.pile__art .art,
+.house .art {
+  --fade-x: 14%;
+  --fade-y: 14%;
+  /* три слоя: края по бокам, сверху-снизу и скруглённые углы — прямоугольной «плашки» не видно */
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent, #000 var(--fade-x), #000 calc(100% - var(--fade-x)), transparent),
+    linear-gradient(180deg, transparent, #000 var(--fade-y), #000 calc(100% - var(--fade-y)), transparent),
+    radial-gradient(ellipse 72% 76% at 50% 50%, #000 62%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent, #000 var(--fade-x), #000 calc(100% - var(--fade-x)), transparent),
+    linear-gradient(180deg, transparent, #000 var(--fade-y), #000 calc(100% - var(--fade-y)), transparent),
+    radial-gradient(ellipse 72% 76% at 50% 50%, #000 62%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* ---------- Ковёр: бесшовный город на всю страницу ---------- */
+#rug {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  padding-bottom: 104px;
+  background: var(--rug-2) url("../assets/rug/rug-tile.svg") 0 0 / var(--tile) var(--tile) repeat;
+}
+/* ворс: тонкий шум поверх ковра и дороги */
+#rug::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--pile), var(--pile-dark);
+  background-size: 180px 180px, 240px 240px;
+  opacity: .32;
+}
+
+/* Поляна: спокойное светлое место под текстом */
+.clearing { position: relative; isolation: isolate; }
+.clearing::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -12px -16px;
+  border-radius: 34px;
+  background: var(--clearing);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+/* ---------- Дорога и машинка ---------- */
+#road {
+  position: absolute;
+  left: 0; top: 0;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+#road use { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.road__shadow { stroke: rgba(110, 80, 50, .16); stroke-width: calc(var(--road-w) + 18px); transform: translateY(4px); }
+.road__edge { stroke: var(--road-edge); stroke-width: calc(var(--road-w) + 12px); }
+.road__kerb { stroke: var(--road-kerb); stroke-width: calc(var(--road-w) + 8px); }
+.road__asphalt { stroke: var(--road); stroke-width: var(--road-w); }
+.road__line { stroke: var(--road-line); stroke-width: 3px; stroke-dasharray: 14 16; }
+
+/* машинка едет над картинками: края иллюстраций растворены, дорога проходит по ним */
+#car {
+  position: absolute;
+  left: 0; top: 0;
+  z-index: 3;
+  width: 81px; height: 46px;
+  margin: -23px 0 0 -40.5px;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+  filter: drop-shadow(0 6px 5px rgba(90, 58, 30, .35));
+}
+.road-ready #car { opacity: 1; transition: opacity .4s ease-out; }
+/* без движения едущей машинки нет: на старте стоит .start-car */
+html:not(.motion) #car { display: none; }
+#car.is-home { z-index: 3; }
+.car { width: 100%; height: 100%; display: block; }
+.car__beam { opacity: 0; }
+.motion.road-ready .car__beam { animation: beam 1.1s ease-out .5s 2; }
+@keyframes beam { 0%, 100% { opacity: 0; } 30%, 55% { opacity: .55; } }
+
+/* ---------- Раскладка ---------- */
+section {
+  position: relative;
+  z-index: 2;
+  padding-inline: var(--gutter);
+}
+.wrap { width: var(--wrap); margin-inline: auto; position: relative; }
+.wp { display: block; height: 0; pointer-events: none; }
+.wp--d { display: none; }
+.lane-r { margin-right: var(--lane-pad); }
+.lane-l { margin-left: var(--lane-pad); }
+
+.title {
+  width: fit-content;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 1.35rem + 3vw, 3.4rem);
+  line-height: 1.04;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.title--xl { font-size: clamp(2.5rem, 1.6rem + 4.4vw, 4.6rem); color: var(--toy-red); text-shadow: var(--shadow-extrude-red); }
+
+.note { color: var(--ink-soft); font-size: 1rem; }
+
+/* Пришитая бирка: войлок + строчка */
+.tag {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  padding: 9px 18px 10px;
+  border-radius: 12px;
+  background: var(--felt);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-weight: 650;
+  font-size: 1rem;
+  line-height: 1.3;
+  text-align: center;
+  box-shadow: 0 8px 14px -8px rgba(90, 40, 20, .55);
+}
+.tag::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1.5px dashed var(--stitch);
+  border-radius: 9px;
+  opacity: .8;
+  pointer-events: none;
+}
+
+/* Звонок: общие правила для всех a.call */
+.call { text-decoration: none; }
+.call--text {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 2px;
+  color: var(--toy-red-deep);
+  font-weight: 750;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  white-space: nowrap;
+}
+.call--text:hover { color: var(--ink); }
+
+/* ---------- Закреплённая полоска ---------- */
+.dock {
+  position: fixed;
+  z-index: 40;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: max(12px, env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  pointer-events: none;
+}
+.dock a { pointer-events: auto; }
+.dock::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: calc(-1 * var(--gutter));
+  right: calc(-1 * var(--gutter));
+  top: -40px;
+  bottom: calc(-1 * max(12px, env(safe-area-inset-bottom)));
+  background: linear-gradient(180deg, rgba(246, 236, 216, 0), rgba(246, 236, 216, .86) 48%, rgba(246, 236, 216, .97));
+  pointer-events: none;
+}
+.dock .call {
+  flex: 1 1 auto;
+  max-width: 290px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 58px;
+  padding: 6px 16px 6px 7px;
+  border-radius: 999px;
+  color: var(--cream);
+  background-color: var(--toy-red);
+  background-image: linear-gradient(180deg, #d4452b 0%, #b8321d 100%);
+  box-shadow: 0 12px 22px -10px rgba(120, 40, 15, .6), inset 0 2px 3px rgba(255, 255, 255, .28), inset 0 -5px 8px rgba(0, 0, 0, .2);
+  transition: transform .2s var(--ease-out);
+}
+.call__icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--cream);
+  color: var(--toy-red-deep);
+  box-shadow: inset 0 -3px 5px rgba(0, 0, 0, .14);
+}
+.call__icon .icon { width: 21px; height: 21px; }
+.call__text { display: flex; flex-direction: column; line-height: 1.05; }
+.call__verb { font-size: 1rem; font-weight: 650; }
+.call__num { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; letter-spacing: .01em; }
+.dock .route {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 58px;
+  padding: 6px 12px 6px 7px;
+  border-radius: 999px;
+  color: var(--ink-dark);
+  text-decoration: none;
+  background-color: var(--toy-yellow);
+  background-image: linear-gradient(180deg, #ffc84a 0%, #eaa923 100%);
+  box-shadow: 0 12px 22px -10px rgba(120, 80, 15, .55), inset 0 2px 3px rgba(255, 255, 255, .4), inset 0 -5px 8px rgba(0, 0, 0, .14);
+  transition: transform .2s var(--ease-out);
+}
+.route__icon {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--ink-dark);
+  color: var(--toy-yellow);
+}
+.route__icon .icon { width: 21px; height: 21px; }
+.route__text { font-weight: 700; font-size: 1rem; line-height: 1.05; max-width: 5.4em; }
+.call__num { white-space: nowrap; }
+/* узкие телефоны (360): полоска помещается в одну строку */
+@media (max-width: 379px) {
+  .dock { gap: 6px; }
+  .dock .call { padding-right: 12px; gap: 6px; }
+  .dock .route { padding-right: 10px; gap: 5px; }
+  .call__icon, .route__icon { width: 34px; height: 34px; }
+  .call__num { font-size: 1.2rem; }
+}
+.dock a:hover { transform: translateY(-2px); }
+.dock a:active { transform: translateY(1px) scale(.98); }
+
+/* ---------- §1 Старт ---------- */
+.hero { padding-top: 18px; }
+.hero__head { width: fit-content; }
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: .9;
+  letter-spacing: -.02em;
+  font-size: 3.4rem;
+  font-size: clamp(3.3rem, 15.2vw, 6rem);
+}
+.hero__drc {
+  display: block;
+  font-size: clamp(1.85rem, .56em, 3.4rem);
+  letter-spacing: .04em;
+  color: var(--ink);
+}
+.hero__name {
+  display: block;
+  color: var(--toy-red);
+  text-shadow: var(--shadow-extrude-name);
+}
+.hero__sub {
+  margin-top: 12px;
+  color: var(--ink-soft);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+.hero__head { position: relative; z-index: 1; }
+/* сцена от края до края: небо и джунгли сверху, коробка внизу; верх и низ растворяются в ковре */
+.hero__box {
+  position: relative;
+  margin: -26px calc(-1 * var(--gutter)) 0;
+  aspect-ratio: 3 / 4;
+}
+.hero__box img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 50% 100%;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 9%, #000 94%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 9%, #000 94%, transparent);
+}
+/* на телефоне старт — в правой полосе, шириной с дорогу: дорога идёт по краю прямо от старта, не пересекая картинки и тексты */
+.hero__start {
+  position: relative;
+  z-index: 1;
+  width: calc(var(--road-w) + 12px);
+  height: 72px;
+  margin: -14px calc(-1 * var(--gutter)) 0 auto;
+}
+.start-line { position: absolute; left: 0; top: 0; width: 100%; height: 12px; display: block; filter: drop-shadow(0 2px 2px rgba(90, 58, 30, .3)); }
+/* стоящая на старте машинка — когда она не едет (reduced motion / без JS) */
+.start-car {
+  display: none;
+  position: absolute;
+  left: 50%; top: 44px;
+  width: 76px; height: 43px;
+  margin: -21.5px 0 0 -38px;
+  rotate: 90deg;
+  filter: drop-shadow(0 5px 4px rgba(90, 58, 30, .35));
+}
+html:not(.motion) .start-car { display: block; }
+
+.motion .hero__drc { animation: drive-in .9s var(--ease-out) .05s both; }
+.motion .hero__name { animation: drive-in 1.05s var(--ease-out) .18s both; }
+@keyframes drive-in {
+  0% { opacity: 0; transform: translateX(-60%); }
+  70% { opacity: 1; transform: translateX(2%); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* ---------- §2 Услуги ---------- */
+.services { padding-top: 34px; }
+.stops { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 26px; }
+.stop { position: relative; width: 100%; }
+.stop--party { margin-top: 6px; }
+
+.stop__btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 24px;
+  -webkit-tap-highlight-color: transparent;
+}
+/* на телефоне иллюстрация — на всю колонку и чуть шире */
+.stop__art {
+  position: relative;
+  display: block;
+  width: calc(100% + var(--gutter));
+  margin-inline: calc(var(--gutter) / -2);
+  aspect-ratio: 4 / 3;
+}
+.stop__art img { height: 100%; object-fit: cover; transition: transform .5s var(--ease-out); }
+.stop__btn:hover .stop__art img { transform: translateY(-6px) rotate(-1deg); }
+.stop__btn:active .stop__art img { transform: scale(.98); }
+/* на телефоне бирка прижата влево: справа по краю картинки идёт дорога */
+.stop__btn .tag { align-self: flex-start; max-width: calc(100% - 64px); margin: -20px 0 0 4px; text-align: left; }
+.stop > .stop__wp { position: absolute; left: 0; top: 38%; width: 0; }
+.stop__open {
+  position: absolute;
+  top: 7%; left: 9%;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  color: var(--ink-dark);
+  background: radial-gradient(circle at 35% 30%, #ffe08a, var(--toy-yellow) 60%, #d18f15);
+  box-shadow: 0 10px 14px -6px rgba(90, 58, 30, .55);
+  transition: transform .3s var(--ease-out);
+}
+.stop__open .icon { stroke-width: 3; }
+.stop__btn:hover .stop__open { transform: rotate(90deg) scale(1.08); }
+/* без JS листы не откроются: остановка — просто картинка с биркой */
+html:not(.js) .stop__btn { cursor: default; }
+html:not(.js) .stop__open { display: none; }
+html:not(.js) .stop__btn:hover .stop__art img,
+html:not(.js) .stop__btn:active .stop__art img { transform: none; }
+
+.party { display: grid; gap: 136px; }
+.party__art {
+  position: relative;
+  width: calc(100% + var(--gutter));
+  margin-inline: calc(var(--gutter) / -2);
+}
+.party__art .art { aspect-ratio: 4 / 3; object-fit: cover; }
+/* фото свисает с нижнего края картинки: лица детей и аниматора открыты, дорога у правого края свободна */
+/* на телефоне фото свисает с левого нижнего края картинки: аниматор и дети открыты, дорога справа свободна */
+.party__photo {
+  position: absolute;
+  z-index: 2; /* подпись фото не прячется под поляной текста ниже */
+  width: min(34%, 150px);
+  left: 3%;
+  top: 82%;
+  --r: -4deg;
+}
+.party__text { display: grid; gap: 14px; justify-items: start; }
+.tag--wide { text-align: left; }
+
+.print {
+  margin: 0;
+  padding: 6px 6px 8px;
+  background: var(--cream);
+  color: var(--ink);
+  border-radius: 6px;
+  box-shadow: var(--shadow-soft);
+  rotate: var(--r, 0deg);
+}
+.print .photo-drift { aspect-ratio: 4 / 5; border-radius: 3px; }
+.print__note { margin-top: 4px; font-size: 1rem; line-height: 1.2; font-weight: 650; color: var(--ink-soft); text-align: center; white-space: nowrap; }
+
+/* Реальные фото: плавная «камера» */
+.photo-drift { position: relative; display: block; overflow: hidden; background: var(--rug-3); }
+.photo-drift img { width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 40%; }
+.motion .photo-drift img { animation: drift 16s ease-in-out infinite; }
+@keyframes drift {
+  0%, 100% { transform: scale(1.02) translate(0, 0); }
+  25% { transform: scale(1.06) translate(-2%, -1%); }
+  50% { transform: scale(1.08) translate(0, -2%); }
+  75% { transform: scale(1.06) translate(2%, -1%); }
+}
+
+.halls { display: grid; gap: 10px; }
+.hall__people { display: flex; flex-wrap: wrap; gap: 3px; max-width: 260px; }
+.hall__people svg { width: 15px; height: 26px; fill: var(--ink-soft); filter: drop-shadow(0 2px 1px rgba(90, 58, 30, .3)); }
+.hall__people svg:nth-child(4n+1) { fill: var(--toy-yellow-deep); }
+.hall__people svg:nth-child(4n+2) { fill: var(--toy-red); }
+.hall__people svg:nth-child(4n+3) { fill: var(--grass-deep); }
+/* человечки подпрыгивают по очереди, волной слева направо */
+.motion .hall__people svg { transform-origin: 50% 100%; animation: peg-hop 3.2s var(--ease-out) infinite; animation-delay: calc(var(--i, 0) * 140ms); }
+.hall__people svg:nth-child(2) { --i: 1; }
+.hall__people svg:nth-child(3) { --i: 2; }
+.hall__people svg:nth-child(4) { --i: 3; }
+.hall__people svg:nth-child(5) { --i: 4; }
+.hall__people svg:nth-child(6) { --i: 5; }
+.hall__people svg:nth-child(7) { --i: 6; }
+.hall__people svg:nth-child(8) { --i: 7; }
+.hall__people svg:nth-child(9) { --i: 8; }
+.hall__people svg:nth-child(10) { --i: 9; }
+.hall__people svg:nth-child(11) { --i: 10; }
+.hall__people svg:nth-child(12) { --i: 11; }
+.hall__people svg:nth-child(13) { --i: 12; }
+.hall__people svg:nth-child(14) { --i: 13; }
+.hall__people svg:nth-child(15) { --i: 14; }
+.hall__people svg:nth-child(16) { --i: 15; }
+.hall__people svg:nth-child(17) { --i: 16; }
+.hall__people svg:nth-child(18) { --i: 17; }
+@keyframes peg-hop {
+  0%, 16%, 100% { transform: none; }
+  5% { transform: translateY(-8px); }
+  10% { transform: translateY(0) scale(1.08, .9); }
+}
+.hall__label { margin-top: 4px; font-size: 1rem; color: var(--ink-soft); }
+.hall__label b { color: var(--ink); font-weight: 700; }
+.note--book { color: var(--ink); font-weight: 600; }
+
+/* ---------- §2a Под присмотром ---------- */
+.care { padding-top: var(--sec-s); }
+.care__line {
+  width: fit-content;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 1.2rem + 2.6vw, 3rem);
+  line-height: 1.12;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.care__line .word { display: inline-block; }
+.care__art {
+  width: calc(100% + var(--gutter));
+  margin: 18px calc(var(--gutter) / -2) 0;
+}
+.care__art .art { aspect-ratio: 16 / 9; object-fit: cover; }
+
+/* ---------- §3 Хватит на всех! ---------- */
+.toys { padding-top: var(--sec-s); }
+.toys__title { width: fit-content; font-family: var(--font-display); font-weight: 800; text-wrap: balance; }
+.toys__lead { display: block; font-size: clamp(1.4rem, 1.1rem + 1.6vw, 2.2rem); line-height: 1.15; color: var(--ink-soft); }
+.toys__shout {
+  display: block;
+  margin-top: 8px;
+  font-size: clamp(3rem, 1.6rem + 7vw, 6rem);
+  line-height: .95;
+  letter-spacing: -.02em;
+  color: var(--toy-red);
+  text-shadow: var(--shadow-extrude-red);
+}
+.pile {
+  position: relative;
+  width: 100%;
+  margin-top: 16px;
+  touch-action: pan-y;
+}
+.pile__art .art { aspect-ratio: 16 / 9; width: 116%; max-width: none; margin-left: -8%; }
+/* телефон: гора и игрушки сдвинуты от правой полосы — машинка едет мимо них, а не по ним */
+@media (max-width: 719px) {
+  /* правый край горы (игрушечная машинка) растворён маской не до конца — он целиком левее правой полосы */
+  .pile__art .art { margin-left: calc(-8% - 48px); }
+  .pile .toy { left: calc(var(--x) * .9); }
+}
+.toy {
+  position: absolute;
+  left: var(--x); top: var(--y);
+  width: var(--s); height: var(--s);
+  margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  pointer-events: none;
+}
+.toy__body {
+  display: block;
+  width: 100%; height: 100%;
+  transition: translate .55s var(--ease-out), rotate .55s var(--ease-out);
+}
+.toy--ball .toy__body {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 33% 28%, rgba(255, 255, 255, .8) 0 9%, rgba(255, 255, 255, 0) 11%),
+    radial-gradient(circle at 42% 38%, var(--c1), var(--c2) 74%);
+  /* объём как у пластика на картинке: мягкая тень снизу-справа, рефлекс от ковра, контактная тень */
+  box-shadow:
+    inset -5px -7px 10px rgba(60, 25, 10, .28),
+    inset 3px 3px 6px rgba(255, 255, 255, .3),
+    inset 0 -2px 3px rgba(255, 236, 200, .35),
+    0 10px 12px -6px rgba(90, 58, 30, .5);
+}
+.toy--block .toy__body {
+  rotate: var(--rot, 0deg);
+  border-radius: 11px;
+  display: grid; place-items: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: calc(var(--s) * .56);
+  line-height: 1;
+  color: rgba(42, 23, 13, .78);
+  background:
+    radial-gradient(120% 90% at 30% 20%, rgba(255, 255, 255, .35), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(150deg, var(--c1), var(--c2));
+  box-shadow: inset 0 3px 3px rgba(255, 255, 255, .45), inset -4px -6px 8px rgba(60, 25, 10, .22), 0 10px 12px -6px rgba(90, 58, 30, .5);
+}
+
+/* ---------- §4 Смешные цены: знаки в ряд и билборд ---------- */
+.prices { padding-top: var(--sec-s); }
+.signs {
+  list-style: none;
+  margin-top: 22px; /* правый отступ — от .lane-r: знаки не заходят на дорогу */
+  margin-bottom: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 10px;
+}
+.sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  --plate: 112px;
+}
+.sign__plate {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  width: var(--plate); height: var(--plate);
+  padding-top: calc(var(--plate) * .3);
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--ink);
+}
+.sign__num { font-weight: 800; font-size: 2.1rem; line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.sign__unit { font-size: 1.3rem; margin-left: 2px; }
+.sign__label {
+  max-width: 100%;
+  padding: 4px 10px 5px;
+  border-radius: 12px;
+  background: var(--clearing);
+  font-size: 1rem;
+  line-height: 1.25;
+  font-weight: 600;
+  color: var(--ink);
+  text-wrap: balance;
+  box-shadow: 0 4px 10px -6px rgba(90, 58, 30, .35);
+}
+.sign__label b { color: var(--toy-red-deep); font-weight: 750; }
+
+.sign--limit .sign__plate {
+  border-radius: 50%;
+  border: 12px solid var(--toy-red);
+  background: #fffdf8;
+  padding-top: calc(var(--plate) * .3 - 12px);
+  box-shadow: var(--shadow-soft);
+}
+.sign--info .sign__plate {
+  border-radius: 22px;
+  border: 5px solid var(--cream);
+  background: var(--toy-blue);
+  color: #ffffff;
+  padding-top: calc(var(--plate) * .3 - 5px);
+  box-shadow: var(--shadow-soft);
+}
+.sign--info .sign__num { font-size: 1.95rem; }
+.sign__plus { font-size: 1.7rem; margin-right: 1px; }
+.sign--diamond .sign__plate { padding: 0; align-items: center; }
+.sign--diamond .sign__plate::before {
+  content: "";
+  position: absolute;
+  inset: 13%;
+  rotate: 45deg;
+  border-radius: 12px;
+  border: 5px solid var(--cream);
+  background: var(--toy-yellow);
+  background-image: linear-gradient(135deg, #ffcd55, var(--toy-yellow) 55%, #e09d1d);
+  box-shadow: var(--shadow-soft);
+}
+.sign__inner { position: relative; display: flex; align-items: baseline; }
+.sign--diamond .sign__num { font-size: 1.9rem; }
+
+.billboard { margin-top: 26px; position: relative; }
+/* на телефоне билборд чуть шире полосы текста: до обочины дороги */
+.billboard.lane-r { margin-right: calc(var(--lane-pad) - 18px); margin-left: -6px; }
+.billboard__board {
+  position: relative;
+  z-index: 1;
+  padding: 14px 12px 14px;
+  border-radius: 22px;
+  border: 5px solid var(--cream);
+  background: var(--board);
+  color: var(--cream);
+  box-shadow: var(--shadow-soft);
+}
+.billboard__posts { display: flex; justify-content: space-between; width: 62%; margin: -4px auto 0; height: 22px; }
+.billboard__posts::before, .billboard__posts::after {
+  content: "";
+  width: 10px; height: 100%;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(90deg, #8f8a83, #d6d1c8 45%, #8f8a83);
+}
+.billboard__head { padding-right: 40px; }
+.billboard__title { font-family: var(--font-display); font-weight: 800; font-size: 1.45rem; line-height: 1.1; }
+.billboard__badge {
+  position: absolute;
+  top: -20px; right: -14px;
+  display: grid;
+  place-content: center;
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--toy-yellow);
+  color: var(--ink-dark);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  rotate: 8deg;
+}
+.billboard__badge b { display: block; font-family: var(--font-display); font-size: 1.3rem; }
+.billboard__price { margin-top: 6px; font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; line-height: 1.1; }
+.billboard__num { font-size: 3.1rem; letter-spacing: -.03em; color: var(--toy-yellow); font-variant-numeric: tabular-nums; }
+.billboard__for { display: block; margin-top: 4px; font-family: var(--font-body); font-size: 1rem; font-weight: 600; }
+.chips { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 10px 6px 7px;
+  border-radius: 14px;
+  border: 1.5px dashed rgba(255, 233, 199, .4);
+  background: rgba(255, 255, 255, .08);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+.chip .icon { width: 20px; height: 20px; margin-top: 1px; color: var(--toy-yellow); stroke-width: 2; }
+/* на телефоне состав пакета — плотный список иконок, без рамок вокруг каждого пункта */
+@media (max-width: 719px) {
+  .chips { gap: 6px 16px; margin-top: 10px; }
+  .chip { border: 0; background: none; padding: 1px 0; gap: 8px; }
+}
+.billboard__extra { margin-top: 10px; font-size: 1rem; line-height: 1.35; color: #e7f1ea; }
+.billboard__extra + .billboard__extra { margin-top: 2px; }
+
+/* ---------- §5 Отзывы: карусель ---------- */
+.reviews { padding-top: var(--sec-m); }
+.carousel { margin-top: 20px; }
+.carousel__track {
+  list-style: none;
+  margin: 0;
+  padding: 4px 2px 14px;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: 2px;
+}
+.js .carousel__track { scrollbar-width: none; }
+.js .carousel__track::-webkit-scrollbar { display: none; }
+.review {
+  flex: 0 0 86%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--clearing);
+  box-shadow: var(--shadow-soft);
+}
+.review .photo-drift { aspect-ratio: 4 / 3; }
+.review:nth-child(2n) .photo-drift img { animation-delay: -5s; animation-duration: 14s; }
+.review:nth-child(3n) .photo-drift img { animation-delay: -9s; animation-duration: 18s; }
+.review__body { flex: 1; padding: 12px 16px 16px; display: flex; flex-direction: column; gap: 6px; }
+.stars { display: inline-flex; gap: 2px; }
+.stars svg { width: 18px; height: 18px; fill: #e9a316; stroke: #b47506; stroke-width: 1; }
+.review__text { font-size: 1rem; line-height: 1.4; color: var(--ink); }
+.review__name { margin-top: auto; padding-top: 4px; font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: var(--toy-red-deep); }
+
+.carousel__bar { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 2px; }
+html:not(.js) .carousel__bar { display: none; }
+.carousel__dots { display: flex; }
+.carousel__dot {
+  width: 44px; height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.carousel__dot::before {
+  content: "";
+  width: 11px; height: 11px;
+  border-radius: 999px;
+  background: var(--ink-soft);
+  opacity: .35;
+  transition: opacity .3s ease-out, background-color .3s ease-out;
+}
+.carousel__dot[aria-current="true"]::before { width: 26px; opacity: 1; background: var(--toy-red); }
+.carousel__prev, .carousel__next {
+  display: none;
+  width: 48px; height: 48px;
+  border: 0;
+  border-radius: 50%;
+  place-items: center;
+  background: var(--cream);
+  color: var(--ink);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition: transform .2s var(--ease-out);
+}
+.carousel__prev .icon { rotate: 180deg; }
+.carousel__prev:hover, .carousel__next:hover { transform: translateY(-2px); }
+
+/* ---------- §6 Приехали ---------- */
+.finish { padding-top: var(--sec-m); }
+.finish__grid { display: grid; gap: 8px; }
+.house { position: relative; width: 82%; margin-right: auto; }
+.house .art { aspect-ratio: 1; scale: -1 1; } /* домик развёрнут подъездом к дороге и к телефону */
+.finish__lane { position: absolute; top: 0; right: 0; width: 0; }
+.house > .wp { position: absolute; width: 0; height: 0; }
+/* машинка паркуется сбоку от домика, носом к нему: на картинку (к детям у крыльца) не заезжает,
+   под крупный номер телефона тоже */
+.house__bend { left: 114%; top: 36%; }
+.house__approach { left: 111%; top: 55%; }
+.house__drive { left: 108%; top: 69%; }
+.house__park { left: 105%; top: 79%; }
+.finish__contacts { display: grid; justify-items: start; gap: 8px; width: fit-content; max-width: 100%; margin-top: 4px; }
+.call--big {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.2rem, 2rem + 6vw, 5.4rem);
+  line-height: 1;
+  letter-spacing: -.01em;
+  color: var(--toy-red);
+  text-shadow: var(--shadow-extrude-red);
+  transition: color .2s ease-out;
+}
+.call--big:hover { color: var(--toy-red-deep); }
+.finish__note { font-size: 1.125rem; color: var(--ink-soft); }
+.address {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  margin-top: 4px;
+  padding: 8px 16px 8px 12px;
+  border-radius: 999px;
+  background: var(--cream);
+  box-shadow: 0 6px 14px -8px rgba(90, 58, 30, .45);
+  font-weight: 650;
+  font-size: 1rem;
+  text-decoration: underline;
+  text-decoration-color: rgba(194, 51, 29, .55);
+}
+.address .icon { color: var(--toy-red); }
+.finish__hours { display: flex; align-items: flex-start; gap: 10px; margin-top: 6px; padding-left: 12px; }
+.finish__hours .icon { margin-top: 2px; color: var(--grass-deep); }
+.finish__hours-title { font-size: 1rem; font-weight: 700; color: var(--ink-soft); }
+.finish__hours p { font-size: 1.0625rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+
+/* ---------- §7 Соцсети ---------- */
+.social { padding-top: var(--sec-l); }
+.toy-buttons { list-style: none; margin: 26px 0 0; padding: 0 var(--lane-pad) 0 0; display: flex; gap: 26px; flex-wrap: wrap; }
+.toy-btn {
+  --cap: 108px;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 700;
+}
+/* пластиковая кнопка-игрушка: колпак, бортик снизу, блик и тень на ковре */
+.toy-btn__cap {
+  position: relative;
+  width: var(--cap); height: var(--cap);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  box-shadow:
+    0 22px 22px -14px rgba(90, 58, 30, .55),
+    inset 0 -12px 16px rgba(0, 0, 0, .2),
+    inset 0 5px 7px rgba(255, 255, 255, .45);
+  transition: transform .25s var(--ease-out);
+}
+.toy-btn::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 8px; left: 50%;
+  width: var(--cap); height: var(--cap);
+  margin-left: calc(var(--cap) / -2);
+  border-radius: 50%;
+  background: var(--cap-side);
+  box-shadow: inset 0 -4px 6px rgba(0, 0, 0, .25);
+}
+.toy-btn--vk { --cap-side: #b5770f; }
+.toy-btn--ig { --cap-side: #8d2412; }
+.toy-btn__cap::before {
+  content: "";
+  position: absolute;
+  left: 17%; top: 9%;
+  width: 46%; height: 26%;
+  border-radius: 50%;
+  rotate: -24deg;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, .85), rgba(255, 255, 255, .25) 60%, rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+.toy-btn--vk .toy-btn__cap { background: radial-gradient(circle at 38% 30%, #ffe597, var(--toy-yellow) 52%, #c98312 88%); color: var(--ink-dark); }
+.toy-btn--ig .toy-btn__cap { background: radial-gradient(circle at 38% 30%, #ffa184, #d8452b 52%, var(--toy-red-deep) 88%); color: var(--cream); }
+.toy-btn__cap .icon { position: relative; width: 50px; height: 50px; stroke-width: 2.2; filter: drop-shadow(0 2px 1px rgba(0, 0, 0, .2)); }
+.toy-btn:hover .toy-btn__cap { transform: translateY(-4px); }
+.toy-btn:active .toy-btn__cap { transform: translateY(3px) scale(.97); }
+.toy-btn__label {
+  padding: 4px 12px 5px;
+  border-radius: 999px;
+  background: var(--clearing);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: .22em;
+  text-decoration-color: rgba(194, 51, 29, .45);
+}
+
+.footnote { width: fit-content; margin-top: 34px; font-size: 1rem; line-height: 1.4; color: var(--ink-soft); max-width: 42ch; }
+
+/* Знаки цен покачиваются на столбиках, кнопки соцсетей подпрыгивают — по кругу и вразнобой */
+.motion .sign__plate { transform-origin: 50% 100%; animation: sign-sway 5.2s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -1.3s); }
+@keyframes sign-sway { 0%, 100% { rotate: -2deg; } 50% { rotate: 2deg; } }
+.motion .toy-btn__cap { animation: cap-bob 3.4s ease-in-out infinite; }
+.motion .toy-buttons li:nth-child(2) .toy-btn__cap { animation-delay: -1.7s; }
+@keyframes cap-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
+/* Иконки тоже живут: чипсы праздника покачиваются вразнобой, булавка адреса подпрыгивает, трубка звонка изредка дрожит */
+.motion .chip .icon { animation: icon-sway 3.6s ease-in-out infinite; }
+.motion .chip:nth-child(2) .icon { animation-duration: 4.2s; animation-delay: -1.1s; }
+.motion .chip:nth-child(3) .icon { animation-duration: 3.3s; animation-delay: -2.4s; }
+.motion .chip:nth-child(4) .icon { animation-duration: 4.6s; animation-delay: -.6s; }
+.motion .chip:nth-child(5) .icon { animation-duration: 3.9s; animation-delay: -3.1s; }
+.motion .chip:nth-child(6) .icon { animation-duration: 3.4s; animation-delay: -1.8s; }
+.motion .chip:nth-child(7) .icon { animation-duration: 4.4s; animation-delay: -2.9s; }
+@keyframes icon-sway { 0%, 100% { rotate: -9deg; } 50% { rotate: 9deg; } }
+.motion .address .icon { animation: pin-hop 2.8s var(--ease-out) infinite; }
+@keyframes pin-hop { 0%, 30%, 100% { translate: 0 0; } 12% { translate: 0 -5px; } 22% { translate: 0 1px; } }
+.motion .finish__hours .icon { animation: icon-sway 4.8s ease-in-out infinite; }
+.motion .stars svg { animation: star-wink 4s ease-in-out infinite; }
+.motion .stars svg:nth-child(2) { animation-delay: .15s; }
+.motion .stars svg:nth-child(3) { animation-delay: .3s; }
+.motion .stars svg:nth-child(4) { animation-delay: .45s; }
+.motion .stars svg:nth-child(5) { animation-delay: .6s; }
+@keyframes star-wink { 0%, 20%, 100% { scale: 1; rotate: 0deg; } 8% { scale: 1.22; rotate: 12deg; } }
+.motion .call__icon .icon { animation: ring 4.5s ease-in-out infinite; }
+@keyframes ring { 0%, 14%, 100% { rotate: 0deg; } 2%, 6%, 10% { rotate: -14deg; } 4%, 8%, 12% { rotate: 14deg; } }
+/* ---------- Живые детали ковра (по кругу; при reduced-motion стоят) ---------- */
+.rug-fx { position: absolute; z-index: 0; pointer-events: none; display: block; }
+/* пруд с рябью */
+.rug-fx--pond { width: 76px; height: 46px; border-radius: 50%; background: var(--water); box-shadow: 0 0 0 4px #cfe7ea; }
+.rug-fx--pond i { position: absolute; inset: 22% 26%; border: 2px solid rgba(255, 255, 255, .9); border-radius: 50%; opacity: 0; }
+.motion .rug-fx--pond i { animation: ripple 3.6s ease-out infinite; }
+.motion .rug-fx--pond i:nth-child(2) { animation-delay: 1.2s; }
+.motion .rug-fx--pond i:nth-child(3) { animation-delay: 2.4s; }
+@keyframes ripple { 0% { transform: scale(.3); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
+html:not(.motion) .rug-fx--pond i:first-child { opacity: .8; }
+/* карусель на площадке */
+.rug-fx--mill { width: 58px; height: 58px; border-radius: 50%; background: var(--grass); box-shadow: 0 0 0 4px #c3d9a6; }
+.rug-fx--mill i {
+  position: absolute; inset: 7px;
+  border-radius: 50%;
+  background: conic-gradient(#e3937a 0 25%, #efca78 0 50%, #9dbcd6 0 75%, #fff7e8 0);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .7);
+}
+.rug-fx--mill i::after { content: ""; position: absolute; inset: 38%; border-radius: 50%; background: var(--toy-red); }
+.motion .rug-fx--mill i { animation: spin 9s linear infinite; }
+@keyframes spin { to { transform: rotate(1turn); } }
+/* флажок на крыше */
+.rug-fx--flag { width: 40px; height: 54px; }
+.rug-fx--flag::before { content: ""; position: absolute; left: 6px; top: 2px; width: 4px; height: 52px; border-radius: 2px; background: #9a948b; }
+.rug-fx--flag i {
+  position: absolute; left: 10px; top: 4px;
+  width: 30px; height: 20px;
+  background: var(--toy-red);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  transform-origin: 0 50%;
+}
+.motion .rug-fx--flag i { animation: wave 1.6s ease-in-out infinite; }
+@keyframes wave { 0%, 100% { transform: scaleX(1) skewY(0deg); } 50% { transform: scaleX(.82) skewY(-8deg); } }
+/* светофор */
+.rug-fx--light { width: 22px; height: 58px; padding: 4px; border-radius: 9px; background: #6f675f; display: grid; gap: 3px; box-shadow: 0 6px 10px -6px rgba(90, 58, 30, .5); }
+.rug-fx--light i { display: block; width: 14px; height: 14px; border-radius: 50%; background: #8a827a; }
+.rug-fx--light i:nth-child(1) { --on: #ef6a52; }
+.rug-fx--light i:nth-child(2) { --on: #f6c94c; }
+.rug-fx--light i:nth-child(3) { --on: #7fcf72; background: var(--on); }
+.motion .rug-fx--light i { animation: lamp 6s steps(1) infinite; }
+.motion .rug-fx--light i:nth-child(1) { animation-delay: 0s; }
+.motion .rug-fx--light i:nth-child(2) { animation-delay: -2s; }
+.motion .rug-fx--light i:nth-child(3) { animation-delay: -4s; }
+@keyframes lamp { 0% { background: var(--on); } 33.33% { background: #8a827a; } }
+
+/* места деталей: телефон */
+.rug-fx--pond { left: 0; top: -60px; }
+.rug-fx--mill { left: 0; top: -66px; } /* дорога идёт справа — карусель на левом краю */
+.rug-fx--flag { left: 6px; top: -62px; }
+.rug-fx--light { right: 96px; top: 8px; }
+
+/* ---------- Всплывающие блоки: шторка снизу ---------- */
+.sheet {
+  width: 100%;
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  margin: auto 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  overflow: visible;
+}
+.sheet::backdrop { background: rgba(58, 36, 20, .55); }
+.sheet__inner {
+  position: relative;
+  max-height: calc(100dvh - 24px);
+  overflow: auto;
+  padding: 12px 12px calc(22px + env(safe-area-inset-bottom));
+  border-radius: 28px 28px 0 0;
+  background-color: var(--rug-2);
+  box-shadow: 0 -20px 50px -20px rgba(58, 36, 20, .5);
+  overscroll-behavior: contain;
+}
+.sheet__inner::after {
+  content: "";
+  position: absolute;
+  inset: 6px 6px 0;
+  border: 1.5px dashed rgba(180, 70, 43, .35);
+  border-bottom: 0;
+  border-radius: 23px 23px 0 0;
+  pointer-events: none;
+}
+.sheet[open] .sheet__inner { animation: sheet-in .45s var(--ease-out); }
+@keyframes sheet-in { from { opacity: 0; transform: translateY(40px); } }
+/* шапка окна: название и крестик; на картинке ничего не лежит */
+.sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 2px 8px 8px;
+}
+.sheet__close {
+  flex: none;
+  width: 48px; height: 48px;
+  border: 0;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--ink);
+  color: var(--cream);
+  cursor: pointer;
+  box-shadow: 0 8px 14px -6px rgba(58, 36, 20, .6);
+}
+.sheet__close .icon { stroke-width: 2.8; }
+/* картинка стоит на той же светлой основе, что и шторка: краёв не видно */
+.sheet__art { aspect-ratio: 4 / 3; }
+.sheet__art img { width: 100%; height: 100%; object-fit: cover; }
+.sheet__title { font-family: var(--font-display); font-weight: 800; font-size: 1.8rem; line-height: 1.1; }
+.sheet__text { margin: 6px 8px 0; color: var(--ink-soft); }
+
+/* ---------- Скролл-анимации: только при .reveals (JS) и без reduced-motion ---------- */
+/* 2. Подъезд сбоку с пружинкой */
+.reveals [data-fx="services"]:not(.is-in) { opacity: 0; transform: translateX(var(--from, 70px)); }
+.reveals [data-fx="services"].is-in { animation: dock-in 1s var(--ease-out) both; }
+@keyframes dock-in {
+  0% { opacity: 0; transform: translateX(var(--from, 70px)); }
+  55% { opacity: 1; transform: translateX(calc(var(--from, 70px) * -.09)); }
+  78% { transform: translateX(calc(var(--from, 70px) * .03)); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* Пауза: строка проявляется по словам */
+.reveals [data-fx="care"]:not(.is-in) .word { opacity: 0; transform: translateY(.35em); }
+.reveals [data-fx="care"].is-in .word { animation: word-in .8s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 180ms); }
+@keyframes word-in { from { opacity: 0; transform: translateY(.35em); } }
+
+/* 3. Гора падает */
+.reveals [data-fx="toys"].pile__art:not(.is-in) { opacity: 0; transform: translateY(-40px); }
+.reveals [data-fx="toys"].pile__art.is-in { animation: pile-drop .9s var(--ease-out) both; }
+@keyframes pile-drop {
+  0% { opacity: 0; transform: translateY(-40px); }
+  60% { opacity: 1; transform: translateY(4px); }
+  100% { opacity: 1; transform: none; }
+}
+.reveals [data-fx="toys"].toy:not(.is-in) { opacity: 0; transform: translateY(-260px) rotate(-40deg); }
+.reveals [data-fx="toys"].toy.is-in { animation: toy-fall 1.1s cubic-bezier(.45, 0, .55, 1) both; animation-delay: calc(.35s + var(--i, 0) * 90ms); }
+@keyframes toy-fall {
+  0% { opacity: 0; transform: translateY(-260px) rotate(-40deg); }
+  10% { opacity: 1; }
+  48% { transform: translateY(0) rotate(0deg); }
+  64% { transform: translateY(-34px) rotate(8deg); }
+  80% { transform: translateY(0) rotate(0deg); }
+  90% { transform: translateY(-8px) rotate(2deg); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* 4. Знаки вбиваются в землю */
+.reveals [data-fx="prices"]:not(.is-in) { opacity: 0; transform: translateY(-50px); }
+.reveals [data-fx="prices"].is-in { animation: hammer .8s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 110ms); transform-origin: 50% 100%; }
+@keyframes hammer {
+  0% { opacity: 0; transform: translateY(-50px); }
+  45% { opacity: 1; transform: translateY(5px) scale(1.03, .95); }
+  70% { transform: translateY(-2px) scale(.99, 1.01); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* Финал: домик встаёт на место, машинка паркуется сама */
+.reveals [data-fx="finish"]:not(.is-in) { opacity: 0; transform: translateY(30px) scale(.94); }
+.reveals [data-fx="finish"].is-in { animation: house-in 1s var(--ease-out) both; }
+@keyframes house-in { from { opacity: 0; transform: translateY(30px) scale(.94); } }
+
+/* Кнопки подпрыгивают по очереди */
+.reveals [data-fx="social"]:not(.is-in) { opacity: 0; transform: translateY(40px); }
+.reveals [data-fx="social"].is-in { animation: hop-in .9s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 160ms); }
+@keyframes hop-in {
+  0% { opacity: 0; transform: translateY(40px); }
+  45% { opacity: 1; transform: translateY(-18px); }
+  70% { transform: translateY(0); }
+  85% { transform: translateY(-5px); }
+  100% { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- 720+ ---------- */
+@media (min-width: 720px) {
+  :root { --wrap: min(680px, 100% - 128px); --lane-pad: 0px; --road-w: 62px; --tile: 720px; }
+  /* сцена во всю ширину окна; название лежит на небе и джунглях, коробка видна уже на первом экране */
+  .hero { padding: 0; }
+  .hero__head { position: absolute; z-index: 1; top: clamp(28px, 4vw, 64px); left: max(var(--gutter), (100% - var(--wrap)) / 2); }
+  .hero__box { margin: 0 auto; max-width: 1680px; aspect-ratio: 960 / 1040; }
+  /* небо начинается от верхнего края окна: полоски ковра над небом нет; низ растворяется в ковре */
+  .hero__box img {
+    -webkit-mask-image: linear-gradient(180deg, #000 94%, transparent);
+    mask-image: linear-gradient(180deg, #000 94%, transparent);
+  }
+  /* старт на оси правой полосы: середина поля справа от колонки, но не ближе полудороги к краю */
+  .hero__start { margin: -18px max(0px, (100% - var(--wrap)) / 4 - var(--road-w) / 2 - 6px) 0 auto; }
+  .toy-buttons { padding-right: 0; }
+  .signs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .review { flex-basis: 62%; }
+  .billboard__badge { right: -4px; } /* не заходит на дорогу в поле */
+  .sheet { width: min(100% - 48px, 600px); margin: auto; }
+  .sheet__inner { border-radius: 28px; padding: 14px 14px 22px; }
+  .sheet__inner::after { inset: 6px; border-bottom: 1.5px dashed rgba(180, 70, 43, .35); border-radius: 23px; }
+  @keyframes sheet-in { from { opacity: 0; transform: translateY(24px) scale(.96); } }
+}
+
+/* ---------- 1024+ ---------- */
+@media (min-width: 1024px) {
+  :root { --wrap: min(1120px, 100% - 224px); --road-w: 74px; --gutter: 24px; --sec-s: 120px; --sec-m: 104px; --sec-l: 100px; }
+  /* −35…45 % от прежних 170 / 120 / 180 */
+  .prices { padding-top: var(--sec-m); }
+  .reviews { padding-top: 76px; }
+  .finish { padding-top: 108px; }
+  #rug { padding-bottom: 56px; }
+  #car { width: 95px; height: 55px; margin: -27.5px 0 0 -47.5px; }
+  .wp--m { display: none; }
+  .wp--d { display: block; }
+
+  .dock { left: auto; right: 24px; top: 20px; bottom: auto; }
+  .dock::before { display: none; }
+  /* после первого экрана полоска сжимается в столбик круглых кнопок у правого края — правая колонка вне текста */
+  .dock .call, .dock .route { transition: transform .2s var(--ease-out); }
+  .dock .call__text, .dock .route__text { transition: opacity .2s ease-out; }
+  .dock-compact .dock { flex-direction: column; align-items: flex-end; gap: 10px; }
+  .dock-compact .dock .call { min-height: 52px; padding: 6px 18px; gap: 0; }
+  .dock-compact .dock .call__icon, .dock-compact .dock .call__verb {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+  .dock-compact .dock .route { min-height: 52px; padding: 5px; gap: 0; }
+  .dock-compact .dock .route__icon { width: 42px; height: 42px; }
+  .dock-compact .dock .route__text {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; opacity: 0;
+  }
+  .dock .call { flex: 0 0 auto; }
+
+  .hero__title { font-size: clamp(4.6rem, 6.6vw, 6rem); }
+  /* сцена ниже: верх неба срезан, коробка с детьми поднимается в первый экран, полоса джунглей остаётся за названием */
+  .hero__box { aspect-ratio: 21 / 20; }
+  /* старт — под правой стенкой коробки: дорога уходит вправо, мимо заголовка услуг */
+  .hero__start { width: 92px; margin: -18px 15% 0 auto; }
+  .hero__sub { font-size: 1.125rem; margin-top: 16px; }
+
+  .services { padding-top: 56px; }
+  .services .title { max-width: 560px; }
+  .stop__btn .tag { max-width: 270px; }
+  /* иллюстрации ×1.4: семь колонок из двенадцати, лесенкой */
+  .stops { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 0; margin-top: 28px; }
+  .stop { margin: 0; }
+  .stop__art { width: 100%; margin-inline: 0; }
+  .stop--play { grid-column: 1 / span 7; grid-row: 1; }
+  .stop--trampoline { grid-column: 6 / span 7; grid-row: 2; margin-top: -120px; }
+  .stop--balls { grid-column: 1 / span 7; grid-row: 3; margin-top: -120px; }
+  .stop--party { grid-column: 1 / -1; grid-row: 4; margin-top: 48px; }
+  .party { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 34px; align-items: center; }
+  .party > .wp { grid-column: 1 / -1; }
+  /* праздник ×1.4: восемь колонок и ещё полколонки в левое поле */
+  .party__art { grid-column: 1 / span 8; width: calc(100% + 40px); margin: 0 0 0 -40px; }
+  .party__text { grid-column: 9 / span 4; margin-left: 0; margin-right: 40px; gap: 18px; } /* правый край — левее компактной полоски звонка */
+  .party__photo { width: 30%; left: auto; top: auto; right: 2%; bottom: -8%; --r: 5deg; }
+  .stop--trampoline .stop__open { left: auto; right: 9%; }
+  .stop--trampoline .stop__btn .tag { align-self: flex-end; margin: -20px 4px 0 0; }
+  .hall__people svg { width: 17px; height: 30px; }
+
+  .care .wrap { width: min(960px, 100% - 224px); }
+  .care__line { margin-inline: auto; text-align: center; }
+  .care__art { position: relative; width: 88%; margin: 28px auto 0; }
+  .care__bend { position: absolute; left: 106%; top: 46%; width: 0; }
+
+  /* гора ×1.4 (630 → 880 на 1440): заголовок сверху слева, гора под ним лесенкой вправо,
+     её пустой верхний левый угол заходит под низ заголовка */
+  .toys__title { z-index: 1; }
+  .pile { width: min(880px, 100%); margin: -72px 0 0 auto; }
+  .pile__art .art { aspect-ratio: 16 / 9; width: 100%; margin-left: 0; }
+  .pile > .wp { position: absolute; width: 0; }
+  .pile__in { left: 50%; top: 4%; }
+  .pile__out { left: 44%; top: 96%; }
+
+  /* знаки — одной строкой, билборд — во всю ширину под ними */
+  .signs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 28px; max-width: 980px; }
+  .sign { --plate: 144px; }
+  .sign__num { font-size: 3rem; }
+  .sign--info .sign__num, .sign--diamond .sign__num { font-size: 2.55rem; }
+  .billboard { margin-top: 30px; max-width: 980px; }
+  .billboard__board { padding: 22px 26px 22px; }
+  .billboard__title { font-size: 1.9rem; }
+  .billboard__num { font-size: 4rem; }
+  .billboard__badge { width: 88px; height: 88px; top: -24px; right: -20px; }
+  .billboard__badge b { font-size: 1.55rem; }
+  .rug-fx--light { right: 0; top: 30px; }
+
+  .review { flex-basis: calc((100% - 24px) / 3); }
+  .carousel__prev, .carousel__next { display: grid; }
+
+  /* финал в две колонки — с 1280: уже́ большой номер не помещается, а подъезд к домику шёл бы под контактами */
+  .finish__lane--low { display: none; }
+
+
+  .social .wrap { display: grid; justify-items: center; text-align: center; }
+  .toy-buttons { justify-content: center; gap: 56px; }
+  .toy-btn { --cap: 128px; }
+  .toy-btn__cap .icon { width: 58px; height: 58px; }
+  .footnote { margin-top: 40px; }
+
+  .rug-fx--pond { left: -110px; top: 40px; }
+  .rug-fx--mill { left: auto; right: -110px; top: 30px; }
+  .rug-fx--flag { right: auto; left: -90px; top: 10px; }
+  .billboard__head { padding-right: 70px; }
+}
+
+@media (min-width: 1280px) {
+  /* домик ×1.4 (536 → ≈700 на 1440): контактам — ровно их ширина, остальное домику, и он заходит в левое поле */
+  .finish__grid { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr; column-gap: 40px; align-items: start; }
+  .finish__title { grid-column: 2; grid-row: 1; margin-top: 70px; margin-right: 0; }
+  .house { grid-column: 1; grid-row: 1 / span 2; width: calc(100% + 40px); margin-left: -40px; }
+  .finish__contacts { grid-column: 2; grid-row: 2; margin-top: 18px; }
+  .finish__lane--low { display: block; top: 96%; }
+  /* подъезд справа, под контактами; стоянка — у правого нижнего угла домика, где кончается его дорожка */
+  .house__bend { left: 128%; top: 96%; }
+  .house__approach { left: 112%; top: 93%; }
+  .house__drive { left: 104%; top: 90%; }
+  .house__park { left: 101%; top: 88%; }
+}
+/* очень широкие окна: сцена не растягивается, её бока тоже растворяются в ковре */
+@media (min-width: 1700px) {
+  .hero__box img {
+    -webkit-mask-image: linear-gradient(180deg, #000 94%, transparent), linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(180deg, #000 94%, transparent), linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-composite: intersect;
+  }
+}

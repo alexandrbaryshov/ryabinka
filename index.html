@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ДРЦ «Рябинка» — детский развлекательный центр в Чебоксарах</title>
+  <meta name="description" content="Игровая площадка, батут, бассейн с шариками и праздники с аниматором. Чебоксары, Эгерский бульвар, 44, 2 этаж. Телефон 60-00-55.">
+  <meta name="theme-color" content="#f6ecd8">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23f6ecd8'/%3E%3Crect x='8' y='20' width='48' height='26' rx='11' fill='%23d13b23'/%3E%3Crect x='22' y='24' width='18' height='18' rx='5' fill='%23f4b52e'/%3E%3Ccircle cx='18' cy='48' r='5' fill='%2324160e'/%3E%3Ccircle cx='46' cy='48' r='5' fill='%2324160e'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    document.documentElement.classList.add('js');
+    if (!window.matchMedia || !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+  </script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21.5 16.6v3a2 2 0 0 1-2.2 2 19.6 19.6 0 0 1-8.5-3 19.3 19.3 0 0 1-6-6 19.6 19.6 0 0 1-3-8.6A2 2 0 0 1 3.8 1.8h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L7.8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.6 2z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-vk" viewBox="0 0 24 24"><path d="M2.6 6.9h3.1c.2 4.6 2.1 6.6 3.7 7V6.9h3v4c1.6-.2 3.3-2 3.9-4h2.9c-.5 2.6-2.4 4.5-3.7 5.3 1.3.6 3.5 2.3 4.3 5.3h-3.2c-.7-2.1-2.4-3.8-4.2-4v4h-.4c-6 0-9.2-4.1-9.4-10.6z"/></symbol>
+    <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-room" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5V21H3z"/><path d="M10 21v-5.5h4V21"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></symbol>
+    <symbol id="i-door" viewBox="0 0 24 24"><path d="M6 21V4.5A1.5 1.5 0 0 1 7.5 3h9A1.5 1.5 0 0 1 18 4.5V21M3.5 21h17"/><path d="M14.5 12.5h.01"/></symbol>
+    <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5a4.5 4.5 0 0 0 7 0M9 9.5h.01M15 9.5h.01"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="4.5" rx="1"/><path d="M5 12.5V21h14v-8.5M12 8v13M12 8S10.5 3.5 8 3.8 6.6 8 12 8zM12 8s1.5-4.5 4-4.2S17.4 8 12 8z"/></symbol>
+    <symbol id="i-brush" viewBox="0 0 24 24"><path d="M14.5 4.5l5 5-8 8-5-5z"/><path d="M6.5 12.5 4 15c-1.2 1.2-1 3.7-.5 5.5 1.8.5 4.3.7 5.5-.5l2.5-2.5"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></symbol>
+    <symbol id="i-crown" viewBox="0 0 24 24"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-peg" viewBox="0 0 16 28"><circle cx="8" cy="6" r="5"/><path d="M2.6 27.5c0-7 1.8-14.5 5.4-14.5s5.4 7.5 5.4 14.5z"/></symbol>
+    <symbol id="i-car" viewBox="0 0 64 36">
+      <rect x="9" y="0.5" width="13" height="8" rx="3.5" fill="#1d120b"/>
+      <rect x="42" y="0.5" width="13" height="8" rx="3.5" fill="#1d120b"/>
+      <rect x="9" y="27.5" width="13" height="8" rx="3.5" fill="#1d120b"/>
+      <rect x="42" y="27.5" width="13" height="8" rx="3.5" fill="#1d120b"/>
+      <rect x="2" y="4" width="60" height="28" rx="12" fill="#b02d19"/>
+      <rect x="2" y="4" width="60" height="25" rx="12" fill="#d8452b"/>
+      <path d="M39 8.5h4.5a6 6 0 0 1 6 6v7a6 6 0 0 1-6 6H39z" fill="#2c1d16"/>
+      <path d="M17 10.5h3v15h-3a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3z" fill="#2c1d16"/>
+      <rect x="21" y="8.5" width="17" height="19" rx="6" fill="#ec5b3e"/>
+      <rect x="24" y="10.5" width="9" height="3" rx="1.5" fill="#ffb59c" opacity=".7"/>
+      <ellipse cx="59" cy="10" rx="2.2" ry="3" fill="#ffe08a"/>
+      <ellipse cx="59" cy="26" rx="2.2" ry="3" fill="#ffe08a"/>
+    </symbol>
+  </svg>
+
+  <nav class="dock" aria-label="Связаться с «Рябинкой»">
+    <a class="call" href="tel:+78352600055">
+      <span class="call__icon" aria-hidden="true"><svg class="icon"><use href="#i-phone"/></svg></span>
+      <span class="call__text"><span class="call__verb">Позвонить</span> <span class="call__num">60-00-55</span></span>
+    </a>
+    <a class="route" href="https://yandex.ru/maps/?pt=47.288160,56.090844&amp;z=17&amp;l=map" target="_blank" rel="noopener" title="Эгерский бульвар, 44, 2 этаж">
+      <span class="route__icon" aria-hidden="true"><svg class="icon"><use href="#i-pin"/></svg></span>
+      <span class="route__text">Как добраться</span>
+      <span class="visually-hidden">: Эгерский бульвар, 44, 2 этаж (откроются Яндекс Карты)</span>
+    </a>
+  </nav>
+
+  <main id="rug">
+    <svg id="road" aria-hidden="true" focusable="false">
+      <defs><path id="road-path" d=""/><path id="road-drawn" d=""/></defs>
+      <use href="#road-drawn" class="road__shadow"/>
+      <use href="#road-drawn" class="road__edge"/>
+      <use href="#road-drawn" class="road__kerb"/>
+      <use href="#road-drawn" class="road__asphalt"/>
+      <use href="#road-drawn" class="road__line"/>
+    </svg>
+
+    <div id="car" aria-hidden="true">
+      <svg class="car" viewBox="0 0 64 36" overflow="visible">
+        <path class="car__beam" d="M61 4 84 -6v26L61 15zM61 21l23-6v26l-23-10z" fill="#ffe7a3"/>
+        <use href="#i-car"/>
+      </svg>
+    </div>
+
+    <!-- §1 Старт -->
+    <section class="hero" data-scene="hero" aria-labelledby="hero-title">
+      <div class="hero__head clearing">
+        <h1 class="hero__title" id="hero-title"><span class="hero__drc">ДРЦ</span> <span class="hero__name">РЯБИНКА</span></h1>
+        <p class="hero__sub">детский развлекательный центр у дома</p>
+      </div>
+      <div class="hero__box">
+        <picture data-live="assets/img/hero-scene" data-live-wait="load">
+          <source type="image/webp" srcset="assets/img/hero-scene.webp">
+          <img class="hero__art art" src="assets/img/hero-scene.jpg" width="960" height="1280" alt="Большая игровая-коробка под небом и джунглями: дети прыгают на батуте, играют в шариках, ползают к мишке, катают машинку и рисуют" fetchpriority="high" decoding="async">
+        </picture>
+      </div>
+      <div class="hero__start" data-road-stop aria-hidden="true">
+        <svg class="start-line" viewBox="0 0 64 10" preserveAspectRatio="none">
+          <rect width="64" height="10" fill="#ffffff"/>
+          <path d="M0 0h8v5H0zM16 0h8v5h-8zM32 0h8v5h-8zM48 0h8v5h-8zM8 5h8v5H8zM24 5h8v5h-8zM40 5h8v5h-8zM56 5h8v5h-8z" fill="#3a2414"/>
+        </svg>
+        <svg class="start-car" viewBox="0 0 64 36"><use href="#i-car"/></svg>
+      </div>
+      <span class="wp wp--m" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+    </section>
+
+    <!-- §2 Услуги -->
+    <section class="services" data-scene="services" aria-labelledby="services-title">
+      <div class="wrap">
+        <span class="rug-fx rug-fx--pond" aria-hidden="true"><i></i><i></i><i></i></span>
+        <h2 class="title clearing lane-r" id="services-title">У нас Ваш ребёнок сможет:</h2>
+        <ul class="stops" role="list">
+          <li class="stop stop--play" data-road-stop data-road-lane="right" data-reveal style="--from:-70px">
+            <button class="stop__btn" type="button" data-dialog="play" aria-haspopup="dialog">
+              <span class="stop__art">
+                <picture data-live="assets/img/service-play">
+                  <source type="image/webp" media="(prefers-reduced-motion: reduce)" srcset="assets/img/service-play.webp">
+                  <source type="image/webp" srcset="assets/img/service-play.webp" sizes="(min-width: 720px) 660px, calc(100vw - 16px)">
+                  <img class="art" src="assets/img/service-play.jpg" width="960" height="720" alt="" loading="lazy" decoding="async">
+                </picture>
+                <span class="stop__open" aria-hidden="true"><svg class="icon"><use href="#i-plus"/></svg></span>
+              </span>
+              <span class="tag">поиграть с игрушками на площадке</span>
+            </button>
+          </li>
+          <li class="stop stop--trampoline" data-road-stop data-road-lane="right" data-road-media="(min-width: 1024px)" data-reveal style="--from:70px">
+            <span class="wp wp--m stop__wp" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+            <button class="stop__btn" type="button" data-dialog="trampoline" aria-haspopup="dialog">
+              <span class="stop__art">
+                <picture data-live="assets/img/service-trampoline">
+                  <source type="image/webp" media="(prefers-reduced-motion: reduce)" srcset="assets/img/service-trampoline.webp">
+                  <source type="image/webp" srcset="assets/img/service-trampoline.webp" sizes="(min-width: 720px) 660px, calc(100vw - 16px)">
+                  <img class="art" src="assets/img/service-trampoline.jpg" width="960" height="720" alt="" loading="lazy" decoding="async">
+                </picture>
+                <span class="stop__open" aria-hidden="true"><svg class="icon"><use href="#i-plus"/></svg></span>
+              </span>
+              <span class="tag">попрыгать на батуте</span>
+            </button>
+          </li>
+          <li class="stop stop--balls" data-road-stop data-road-lane="right" data-reveal style="--from:-70px">
+            <button class="stop__btn" type="button" data-dialog="balls" aria-haspopup="dialog">
+              <span class="stop__art">
+                <picture data-live="assets/img/service-balls">
+                  <source type="image/webp" media="(prefers-reduced-motion: reduce)" srcset="assets/img/service-balls.webp">
+                  <source type="image/webp" srcset="assets/img/service-balls.webp" sizes="(min-width: 720px) 660px, calc(100vw - 16px)">
+                  <img class="art" src="assets/img/service-balls.jpg" width="960" height="720" alt="" loading="lazy" decoding="async">
+                </picture>
+                <span class="stop__open" aria-hidden="true"><svg class="icon"><use href="#i-plus"/></svg></span>
+              </span>
+              <span class="tag">поиграть в бассейне с шариками</span>
+            </button>
+          </li>
+          <li class="stop stop--party" data-reveal style="--from:70px">
+            <div class="party">
+              <span class="wp wp--d" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+              <div class="party__art" data-road-stop data-road-lane="right" data-road-media="(max-width: 1023px)">
+                <picture data-live="assets/img/service-party">
+                  <source type="image/webp" media="(prefers-reduced-motion: reduce)" srcset="assets/img/service-party.webp">
+                  <source type="image/webp" srcset="assets/img/service-party.webp" sizes="(min-width: 720px) 780px, calc(100vw - 16px)">
+                  <img class="art" src="assets/img/service-party.jpg" width="960" height="720" alt="Праздник: торт со свечами и аниматор в костюме супергероя" loading="lazy" decoding="async">
+                </picture>
+                <figure class="print party__photo">
+                  <span class="photo-drift">
+                    <picture>
+                      <source type="image/webp" srcset="assets/photos/photo-3.webp">
+                      <img src="assets/photos/photo-3.jpg" width="484" height="647" alt="Настоящее фото из «Рябинки»: аниматор Человек-паук с праздничным тортом" loading="lazy" decoding="async">
+                    </picture>
+                  </span>
+                  <figcaption class="print__note">настоящее фото</figcaption>
+                </figure>
+              </div>
+              <div class="party__text clearing lane-r">
+                <p class="tag tag--wide">отметить день рождения или выпускной с аниматором в костюме Человека-паука</p>
+                <div class="halls">
+                  <div class="hall">
+                    <span class="hall__people" aria-hidden="true">
+                      <svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg>
+                    </span>
+                    <p class="hall__label"><b>Малая комната</b> — до 10 человек</p>
+                  </div>
+                  <div class="hall">
+                    <span class="hall__people" aria-hidden="true">
+                      <svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg><svg><use href="#i-peg"/></svg>
+                    </span>
+                    <p class="hall__label"><b>Большой зал</b> — до 18 человек</p>
+                  </div>
+                </div>
+                <p class="note note--book">Забронировать заранее — <a class="call call--text" href="tel:+78352600055">60-00-55</a></p>
+              </div>
+              <span class="wp wp--m" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- §2a Под присмотром -->
+    <section class="care" data-scene="care" aria-labelledby="care-title">
+      <div class="wrap">
+        <span class="wp wp--m" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+        <span class="rug-fx rug-fx--mill" aria-hidden="true"><i></i></span>
+        <h2 class="care__line clearing lane-r" id="care-title" data-reveal><span class="word" style="--i:0">Вы —</span> <span class="word" style="--i:1">по делам,</span> <span class="word" style="--i:2">ребёнок —</span> <span class="word" style="--i:3">под присмотром</span></h2>
+        <div class="care__art">
+          <span class="wp wp--d care__bend" data-road-stop aria-hidden="true"></span>
+          <picture data-live="assets/img/care-scene">
+            <source type="image/webp" media="(prefers-reduced-motion: reduce)" srcset="assets/img/care-scene.webp">
+            <source type="image/webp" srcset="assets/img/care-scene.webp" sizes="(min-width: 720px) 850px, calc(100vw - 16px)">
+            <img class="art" src="assets/img/care-scene.jpg" width="960" height="540" alt="Ребёнок спокойно играет рядом с воспитателем, у двери ждёт мамина игрушечная машинка" loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <span class="wp wp--m" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <!-- §3 Хватит на всех -->
+    <section class="toys" data-scene="toys" aria-labelledby="toys-title">
+      <div class="wrap">
+        <span class="wp wp--m" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+        <span class="rug-fx rug-fx--flag" aria-hidden="true"><i></i></span>
+        <h2 class="toys__title clearing lane-r" id="toys-title"><span class="toys__lead">Игрушки можно не брать, у нас их много.</span> <span class="toys__shout">Хватит на всех!</span></h2>
+        <div class="pile" data-toys>
+          <span class="wp wp--d pile__in" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+          <span class="wp wp--d pile__out" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+          <div class="pile__art" data-reveal>
+            <picture data-live="assets/img/toys-pile">
+              <source type="image/webp" media="(prefers-reduced-motion: reduce)" srcset="assets/img/toys-pile.webp">
+              <source type="image/webp" srcset="assets/img/toys-pile.webp" sizes="(min-width: 1024px) 880px, (min-width: 720px) 790px, 116vw">
+              <img class="art" src="assets/img/toys-pile.jpg" width="960" height="540" alt="Гора игрушек: мягкие игрушки, машинки, кубики и карандаши" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <span class="toy toy--ball" aria-hidden="true" data-reveal style="--i:0;--x:6%;--y:66%;--s:54px;--c1:#ff7a5c;--c2:#c2321c"><span class="toy__body"></span></span>
+          <span class="toy toy--block" aria-hidden="true" data-reveal style="--i:1;--x:24%;--y:76%;--s:50px;--c1:#ffd36b;--c2:#d1901a;--rot:-8deg"><span class="toy__body">Р</span></span>
+          <span class="toy toy--ball" aria-hidden="true" data-reveal style="--i:2;--x:41%;--y:82%;--s:40px;--c1:#9fb35a;--c2:#56631f"><span class="toy__body"></span></span>
+          <span class="toy toy--block" aria-hidden="true" data-reveal style="--i:3;--x:55%;--y:74%;--s:46px;--c1:#ff8f6d;--c2:#bf3a22;--rot:10deg"><span class="toy__body">Я</span></span>
+          <span class="toy toy--ball" aria-hidden="true" data-reveal style="--i:4;--x:70%;--y:80%;--s:58px;--c1:#ffdd7a;--c2:#d39a1c"><span class="toy__body"></span></span>
+          <span class="toy toy--block" aria-hidden="true" data-reveal style="--i:5;--x:85%;--y:70%;--s:44px;--c1:#b9c86e;--c2:#5e6b25;--rot:-14deg"><span class="toy__body">Б</span></span>
+          <span class="toy toy--ball" aria-hidden="true" data-reveal style="--i:6;--x:15%;--y:52%;--s:34px;--c1:#ffd36b;--c2:#c98714"><span class="toy__body"></span></span>
+          <span class="toy toy--ball" aria-hidden="true" data-reveal style="--i:7;--x:91%;--y:48%;--s:36px;--c1:#ff7a5c;--c2:#b52c18"><span class="toy__body"></span></span>
+        </div>
+        <span class="wp wp--m" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <!-- §4 Смешные цены -->
+    <section class="prices" data-scene="prices" aria-labelledby="prices-title">
+      <div class="wrap">
+        <span class="wp wp--m" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+        <span class="wp wp--d" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+        <h2 class="title title--xl clearing lane-r" id="prices-title">Смешные цены</h2>
+        <span class="rug-fx rug-fx--light" aria-hidden="true"><i></i><i></i><i></i></span>
+        <h3 class="prices__group visually-hidden">Игра в зале</h3>
+        <ul class="signs lane-r" role="list">
+          <li class="sign sign--limit" data-reveal style="--i:0">
+            <p class="sign__plate"><b class="sign__num" data-count-to="300">300</b><span class="sign__unit">₽</span></p>
+            <p class="sign__label">1 час</p>
+          </li>
+          <li class="sign sign--limit" data-reveal style="--i:1">
+            <p class="sign__plate"><b class="sign__num" data-count-to="500">500</b><span class="sign__unit">₽</span></p>
+            <p class="sign__label">Безлимит</p>
+          </li>
+          <li class="sign sign--info" data-reveal style="--i:2">
+            <p class="sign__plate"><span class="sign__plus">+</span><b class="sign__num" data-count-to="200">200</b><span class="sign__unit">₽</span></p>
+            <p class="sign__label">Продление до безлимита</p>
+          </li>
+          <li class="sign sign--diamond" data-reveal style="--i:3">
+            <p class="sign__plate"><span class="sign__inner"><b class="sign__num" data-count-to="200">200</b><span class="sign__unit">₽</span></span></p>
+            <p class="sign__label"><b>Акция:</b> каждый понедельник и среду 1 час</p>
+          </li>
+        </ul>
+        <span class="wp wp--m" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+        <div class="billboard lane-r" data-reveal style="--i:4">
+          <div class="billboard__board">
+            <div class="billboard__head">
+              <h3 class="billboard__title">День рождения под ключ</h3>
+              <p class="billboard__badge"><b>−50%</b> акция</p>
+            </div>
+            <p class="billboard__price"><b class="billboard__num" data-count-to="9500">9500</b> ₽ <span class="billboard__for">до 10 детей, всё включено</span></p>
+            <ul class="chips" role="list">
+              <li class="chip"><svg class="icon" aria-hidden="true"><use href="#i-room"/></svg>игровой зал только для гостей именинника на 3 часа</li>
+              <li class="chip"><svg class="icon" aria-hidden="true"><use href="#i-door"/></svg>комната именинника для всей компании</li>
+              <li class="chip"><svg class="icon" aria-hidden="true"><use href="#i-smile"/></svg>игровая программа с нашим аниматором на 1 час (персонаж и программа на выбор)</li>
+              <li class="chip"><svg class="icon" aria-hidden="true"><use href="#i-gift"/></svg>подарки от нашего героя: сладкие угощения, фигурки из воздушных шариков, мыльные пузыри</li>
+              <li class="chip"><svg class="icon" aria-hidden="true"><use href="#i-brush"/></svg>аквагрим</li>
+              <li class="chip"><svg class="icon" aria-hidden="true"><use href="#i-music"/></svg>дискотека</li>
+              <li class="chip"><svg class="icon" aria-hidden="true"><use href="#i-crown"/></svg>специальный подарок для именинника</li>
+            </ul>
+            <p class="billboard__extra">Больше 10 детей — +300 ₽ за каждого</p>
+            <p class="billboard__extra">Продлить праздник на 1 час — 1000 ₽</p>
+          </div>
+          <span class="billboard__posts" aria-hidden="true"></span>
+        </div>
+        <span class="wp wp--m" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+        <span class="wp wp--d" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <!-- §5 Отзывы -->
+    <section class="reviews" data-scene="reviews" aria-labelledby="reviews-title">
+      <div class="wrap">
+        <span class="wp" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+        <h2 class="title clearing lane-r" id="reviews-title">Фото и отзывы</h2>
+        <div class="carousel lane-r" role="region" aria-roledescription="карусель" aria-labelledby="reviews-title">
+          <ul class="carousel__track" role="list" tabindex="0" aria-label="Отзывы: листайте вбок">
+            <li class="review" aria-roledescription="слайд" aria-label="1 из 5">
+              <span class="photo-drift">
+                <picture>
+                  <source type="image/webp" srcset="assets/photos/photo-1.webp">
+                  <img src="assets/photos/photo-1.jpg" width="662" height="795" alt="Карусель-пальма в игровом зале «Рябинки»" loading="lazy" decoding="async">
+                </picture>
+              </span>
+              <div class="review__body">
+                <span class="stars" role="img" aria-label="5 звёзд из 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+                <p class="review__text">Ходим сюда уже года 1,5. Очень нравится, просторно, всегда было большое разнообразие игрушек, два батута, горка, есть зоны для празднования дня рождения.</p>
+                <p class="review__name">Lerkenty</p>
+              </div>
+            </li>
+            <li class="review" aria-roledescription="слайд" aria-label="2 из 5">
+              <span class="photo-drift">
+                <picture>
+                  <source type="image/webp" srcset="assets/photos/photo-2.webp">
+                  <img src="assets/photos/photo-2.jpg" width="655" height="845" alt="Девочка знакомится с аниматором в ярком оранжевом костюме" loading="lazy" decoding="async">
+                </picture>
+              </span>
+              <div class="review__body">
+                <span class="stars" role="img" aria-label="5 звёзд из 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+                <p class="review__text">Детский центр "Рябинка" — это замечательное место для отдыха ребенка! Я с удовольствием привожу сюда ребенка развлечься!</p>
+                <p class="review__name">Даниил Евграфов</p>
+              </div>
+            </li>
+            <li class="review" aria-roledescription="слайд" aria-label="3 из 5">
+              <span class="photo-drift">
+                <picture>
+                  <source type="image/webp" srcset="assets/photos/photo-3.webp">
+                  <img src="assets/photos/photo-3.jpg" width="484" height="647" alt="Аниматор Человек-паук выносит торт с бенгальскими огнями" loading="lazy" decoding="async">
+                </picture>
+              </span>
+              <div class="review__body">
+                <span class="stars" role="img" aria-label="5 звёзд из 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+                <p class="review__text">Пространство очень уютное и безопасное, что особенно важно для родителей</p>
+                <p class="review__name">Дина Краснова</p>
+              </div>
+            </li>
+            <li class="review" aria-roledescription="слайд" aria-label="4 из 5">
+              <span class="photo-drift">
+                <picture>
+                  <source type="image/webp" srcset="assets/photos/photo-4.webp">
+                  <img src="assets/photos/photo-4.jpg" width="693" height="833" alt="Новогодний праздник: Дед Мороз и Снегурочка водят хоровод с детьми" loading="lazy" decoding="async">
+                </picture>
+              </span>
+              <div class="review__body">
+                <span class="stars" role="img" aria-label="5 звёзд из 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+                <p class="review__text">Очень уютный игровой центр, куда мы часто приходим с ребенком, радует своим приемлемым ценовым диапазоном и удобным расположением — он находится недалеко от нашего дома и детского сада.</p>
+                <p class="review__name">Никон Евдокимов</p>
+              </div>
+            </li>
+            <li class="review" aria-roledescription="слайд" aria-label="5 из 5">
+              <span class="photo-drift">
+                <picture>
+                  <source type="image/webp" srcset="assets/photos/photo-5.webp">
+                  <img src="assets/photos/photo-5.jpg" width="645" height="834" alt="Аниматор в костюме мишки играет с детьми в зале" loading="lazy" decoding="async">
+                </picture>
+              </span>
+              <div class="review__body">
+                <span class="stars" role="img" aria-label="5 звёзд из 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+                <p class="review__text">Наш любимый игровой центр, всегда весело, уютно и тепло. Администраторы вежливые и очень приветливые</p>
+                <p class="review__name">Светлана</p>
+              </div>
+            </li>
+          </ul>
+          <div class="carousel__bar">
+            <button class="carousel__prev" type="button" aria-label="Предыдущий отзыв"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+            <div class="carousel__dots"></div>
+            <button class="carousel__next" type="button" aria-label="Следующий отзыв"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- §6 Приехали -->
+    <section class="finish" id="contacts" data-scene="finish" aria-labelledby="finish-title">
+      <div class="wrap finish__grid">
+        <span class="wp finish__lane" data-road-stop data-road-lane="right" aria-hidden="true"></span>
+        <span class="wp wp--d finish__lane finish__lane--low" data-road-stop data-road-tail data-road-lane="right" aria-hidden="true"></span>
+        <h2 class="title clearing lane-r finish__title" id="finish-title">Приехали!</h2>
+        <div class="house">
+          <div class="house__art" data-reveal>
+            <picture data-live="assets/img/house-ryabinka">
+              <source type="image/webp" media="(prefers-reduced-motion: reduce)" srcset="assets/img/house-ryabinka.webp">
+              <source type="image/webp" srcset="assets/img/house-ryabinka.webp" sizes="(min-width: 1280px) 710px, (min-width: 1024px) 620px, (min-width: 720px) 560px, 82vw">
+              <img class="art" src="assets/img/house-ryabinka.jpg" width="960" height="960" alt="Игрушечный домик «Рябинка» в конце дороги" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <span class="wp house__bend" data-road-stop data-road-tail aria-hidden="true"></span>
+          <span class="wp house__approach" data-road-stop data-road-tail aria-hidden="true"></span>
+          <span class="wp house__drive" data-road-stop data-road-end aria-hidden="true"></span>
+          <span class="wp house__park" data-road-stop data-road-park aria-hidden="true"></span>
+        </div>
+        <div class="finish__contacts clearing">
+          <a class="call call--big" href="tel:+78352600055"><span class="visually-hidden">Позвонить: +7 (8352) </span>60-00-55</a>
+          <p class="finish__note">Все подробности по телефону</p>
+          <a class="address" href="https://yandex.ru/maps/?pt=47.288160,56.090844&amp;z=17&amp;l=map" target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>
+            <span>Эгерский бульвар, 44, 2 этаж</span>
+          </a>
+          <div class="finish__hours">
+            <svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>
+            <div>
+              <h3 class="finish__hours-title">Режим работы</h3>
+              <p>Пн–Сб: 09:00–20:00</p>
+              <p>Вс: 09:00–19:00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- §7 Соцсети -->
+    <section class="social" data-scene="social" aria-labelledby="social-title">
+      <div class="wrap">
+        <h2 class="title clearing" id="social-title">Мы в социальных сетях</h2>
+        <ul class="toy-buttons" role="list">
+          <li data-reveal style="--i:0">
+            <a class="toy-btn toy-btn--vk" href="https://vk.ru/detsciycentr21" target="_blank" rel="noopener">
+              <span class="toy-btn__cap" aria-hidden="true"><svg class="icon"><use href="#i-vk"/></svg></span>
+              <span class="toy-btn__label">ВКонтакте</span>
+            </a>
+          </li>
+          <li data-reveal style="--i:1">
+            <a class="toy-btn toy-btn--ig" href="https://www.instagram.com/dtsriabinka/" target="_blank" rel="noopener">
+              <span class="toy-btn__cap" aria-hidden="true"><svg class="icon"><use href="#i-insta"/></svg></span>
+              <span class="toy-btn__label">Instagram*</span>
+            </a>
+          </li>
+        </ul>
+        <p class="footnote clearing">*Instagram принадлежит компании Meta, признанной экстремистской и запрещённой в РФ</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Всплывающие блоки услуг -->
+  <dialog class="sheet" id="dialog-play" aria-labelledby="dialog-play-title">
+    <div class="sheet__inner">
+      <div class="sheet__head">
+        <h2 class="sheet__title" id="dialog-play-title">Игровая площадка</h2>
+        <button class="sheet__close" type="button" data-close autofocus><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg><span class="visually-hidden">Закрыть</span></button>
+      </div>
+      <div class="sheet__art sheet__art--play">
+        <picture data-live="assets/img/service-play">
+          <source type="image/webp" media="(prefers-reduced-motion: reduce)" srcset="assets/img/service-play.webp">
+          <source type="image/webp" srcset="assets/img/service-play.webp" sizes="(min-width: 720px) 572px, calc(100vw - 24px)">
+          <img src="assets/img/service-play.jpg" width="960" height="720" alt="Дети на ковре с дорогой: мальчик катает машинку, девочка рисует, малыш обнимает мишку" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <p class="sheet__text">Ковёр с дорогой, мягкие игрушки, машинки и рисование</p>
+    </div>
+  </dialog>
+
+  <dialog class="sheet" id="dialog-trampoline" aria-labelledby="dialog-trampoline-title">
+    <div class="sheet__inner">
+      <div class="sheet__head">
+        <h2 class="sheet__title" id="dialog-trampoline-title">Батут</h2>
+        <button class="sheet__close" type="button" data-close autofocus><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg><span class="visually-hidden">Закрыть</span></button>
+      </div>
+      <div class="sheet__art sheet__art--trampoline">
+        <picture data-live="assets/img/service-trampoline">
+          <source type="image/webp" media="(prefers-reduced-motion: reduce)" srcset="assets/img/service-trampoline.webp">
+          <source type="image/webp" srcset="assets/img/service-trampoline.webp" sizes="(min-width: 720px) 572px, calc(100vw - 24px)">
+          <img src="assets/img/service-trampoline.jpg" width="960" height="720" alt="Ребёнок прыгает на круглом батуте с сеткой" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <p class="sheet__text">Прыгать, смеяться и снова прыгать</p>
+    </div>
+  </dialog>
+
+  <dialog class="sheet" id="dialog-balls" aria-labelledby="dialog-balls-title">
+    <div class="sheet__inner">
+      <div class="sheet__head">
+        <h2 class="sheet__title" id="dialog-balls-title">Бассейн с шариками</h2>
+        <button class="sheet__close" type="button" data-close autofocus><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg><span class="visually-hidden">Закрыть</span></button>
+      </div>
+      <div class="sheet__art sheet__art--balls">
+        <picture data-live="assets/img/service-balls">
+          <source type="image/webp" media="(prefers-reduced-motion: reduce)" srcset="assets/img/service-balls.webp">
+          <source type="image/webp" srcset="assets/img/service-balls.webp" sizes="(min-width: 720px) 572px, calc(100vw - 24px)">
+          <img src="assets/img/service-balls.jpg" width="960" height="720" alt="Дети в надувном бассейне с шариками: подбрасывают шарики и ныряют" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <p class="sheet__text">Надувной бассейн, полный разноцветных шариков</p>
+    </div>
+  </dialog>
+</body>
+</html>
