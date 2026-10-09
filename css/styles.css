@@ -989,6 +989,15 @@ html:not(.js) .stop__btn:active .stop__art img { transform: none; }
 .review .photo-drift { aspect-ratio: 4 / 3; }
 .review:nth-child(2n) .photo-drift img { animation-delay: -5s; animation-duration: 14s; }
 .review:nth-child(3n) .photo-drift img { animation-delay: -9s; animation-duration: 18s; }
+/* высокое фото с головой у верхнего края (Человек-паук): кадр прижат к верху, «камера» приближает меньше */
+.review .photo-drift--head img { object-position: 50% 8%; transform-origin: 50% 0; }
+.motion .review .photo-drift--head img { animation-name: drift-head; }
+@keyframes drift-head {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  25% { transform: scale(1.03) translate(-1%, 0); }
+  50% { transform: scale(1.04) translate(0, 0); }
+  75% { transform: scale(1.03) translate(1%, 0); }
+}
 .review__body { flex: 1; padding: 12px 16px 16px; display: flex; flex-direction: column; gap: 6px; }
 .stars { display: inline-flex; gap: 2px; }
 .stars svg { width: 18px; height: 18px; fill: #e9a316; stroke: #b47506; stroke-width: 1; }
