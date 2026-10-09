@@ -1380,6 +1380,8 @@ section.is-off *, section.is-off *::before, section.is-off *::after { animation-
   .hero__box { margin: 0 auto; max-width: 1680px; aspect-ratio: 960 / 1040; }
   /* старт на оси правой полосы: середина поля справа от колонки, но не ближе полудороги к краю */
   .hero__start { margin: -48px max(0px, (100% - var(--wrap)) / 4 - var(--road-w) / 2 - 6px) 0 auto; }
+  /* сцена во всю ширину: подсказка не по центру (там дети), а у левого края, на бортике коробки */
+  .scroll-hint { left: 24px; translate: none; }
   .road-signs { padding-right: 0; }
   .signs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .review { flex-basis: 62%; }
