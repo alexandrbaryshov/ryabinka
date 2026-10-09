@@ -73,12 +73,15 @@
       var lane = Math.max(rw / 2 + 6, contentLeft / 2);
       var minX = lane, maxX = W - lane;
       rugTop = r.top + window.pageYOffset;
+      // на телефоне полоса дороги — слева (CSS --lane-side): правый край экрана закрывает большой палец
+      var flip = getComputedStyle(rug).getPropertyValue('--lane-side').trim() === 'left';
 
       var stops = $$('[data-road-stop]', rug).filter(stopIsActive).map(function (el) {
         var b = box(el);
         var x = b.left + b.width / 2;
         var y = b.top + b.height / 2;
         var laneSide = el.getAttribute('data-road-lane');
+        if (flip && laneSide === 'right') laneSide = 'left';
         var side = el.getAttribute('data-road-side');
         if (laneSide === 'left') x = lane;
         else if (laneSide === 'right') x = W - lane;
@@ -245,6 +248,12 @@
     // скрытие/показ адресной строки во время прокрутки, а ширина ковра при этом не меняется
     if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(rug);
     else window.addEventListener('resize', schedule);
+    // поворот экрана через 720 px меняет сторону полосы
+    var narrowLane = window.matchMedia && window.matchMedia('(max-width: 719px)');
+    if (narrowLane) {
+      if (narrowLane.addEventListener) narrowLane.addEventListener('change', schedule);
+      else if (narrowLane.addListener) narrowLane.addListener(schedule);
+    }
     build();
   }
 

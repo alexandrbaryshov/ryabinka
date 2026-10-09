@@ -1345,6 +1345,38 @@ html:not(.motion) .rug-fx--pond i:first-child { opacity: .8; }
 /* секция далеко за экраном (initOffscreenPause): её бесконечные анимации на паузе */
 section.is-off *, section.is-off *::before, section.is-off *::after { animation-play-state: paused !important; }
 
+/* ---------- Телефон: дорога по левому краю ----------
+   Правый край экрана закрывает большой палец, когда листают, — машинка ехала бы под ним.
+   Всё, что держалось подальше от правой полосы, зеркально уходит от левой (initRoad читает --lane-side). */
+@media (max-width: 719px) {
+  #rug { --lane-side: left; }
+  .lane-r { margin-right: 0; margin-left: var(--lane-pad); }
+  .billboard.lane-r { margin-left: calc(var(--lane-pad) - 18px); margin-right: -6px; }
+  /* дорога кончается у домика: контактам и знакам соцсетей уступать ей место не нужно */
+  .road-signs { padding: 0; }
+  /* старт — в левой полосе */
+  .hero__start { margin: -44px auto 0 calc(-1 * var(--gutter)); }
+  /* бирка и «+» — справа, подальше от дороги */
+  .stop__btn .tag { align-self: flex-end; margin: -20px 4px 0 0; }
+  .stop__open { left: auto; right: 9%; }
+  /* настоящее фото свисает с правого нижнего края картинки праздника */
+  .party__photo { left: auto; right: 3%; --r: 4deg; }
+  /* гора и игрушки сдвинуты вправо, от левой полосы */
+  .pile__art .art { margin-left: calc(-8% + 48px); }
+  .pile .toy { left: calc(16% + var(--x) * .84); }
+  /* домик справа, развёрнут подъездом к дороге; машинка паркуется слева от него */
+  .house { margin-right: 0; margin-left: auto; }
+  .house .art { scale: none; }
+  .house__bend { left: -14%; }
+  .house__approach { left: -11%; }
+  .house__drive { left: -8%; }
+  .house__park { left: -5%; }
+  /* живые детали ковра — у правого края */
+  .rug-fx--pond, .rug-fx--mill { left: auto; right: 0; }
+  .rug-fx--flag { left: auto; right: 6px; }
+  .rug-fx--light { right: 16px; }
+}
+
 /* ---------- 720+ ---------- */
 @media (min-width: 720px) {
   :root { --wrap: min(680px, 100% - 128px); --lane-pad: 0px; --road-w: 62px; --tile: 720px; }
