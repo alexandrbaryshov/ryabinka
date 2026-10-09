@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>ДРЦ «Рябинка» — детский развлекательный центр в Чебоксарах</title>
   <meta name="description" content="Игровая площадка, батут, бассейн с шариками и праздники с аниматором. Чебоксары, Эгерский бульвар, 44, 2 этаж. Телефон 60-00-55.">
-  <meta name="theme-color" content="#f6ecd8">
+  <meta name="theme-color" content="#a6daeb">
   <meta name="color-scheme" content="light">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23f6ecd8'/%3E%3Crect x='8' y='20' width='48' height='26' rx='11' fill='%23d13b23'/%3E%3Crect x='22' y='24' width='18' height='18' rx='5' fill='%23f4b52e'/%3E%3Ccircle cx='18' cy='48' r='5' fill='%2324160e'/%3E%3Ccircle cx='46' cy='48' r='5' fill='%2324160e'/%3E%3C/svg%3E">
+  <link rel="preload" href="assets/fonts/mplusrounded1c-800-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/golostext-var-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
+  <!-- маски по контуру картинок не нужны первому экрану: файл грузится, не задерживая отрисовку -->
+  <link rel="stylesheet" href="css/masks.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="css/masks.css"></noscript>
   <script>
     document.documentElement.classList.add('js');
     if (!window.matchMedia || !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+    try { if (localStorage.getItem('ryabinka-splash')) document.documentElement.classList.add('splash-seen'); } catch (e) {}
   </script>
   <script src="js/main.js" defer></script>
 </head>
@@ -50,6 +56,18 @@
     </symbol>
   </svg>
 
+  <!-- заставка, пока грузится живая картинка первого экрана (только с анимациями) -->
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash__inner">
+      <p class="splash__name">РЯБИНКА</p>
+      <div class="splash__road">
+        <span class="splash__lines"></span>
+        <svg class="splash__car" viewBox="0 0 64 36"><use href="#i-car"/></svg>
+      </div>
+      <p class="splash__text">Заводим машинку</p>
+    </div>
+  </div>
+
   <nav class="dock" aria-label="Связаться с «Рябинкой»">
     <a class="call" href="tel:+78352600055">
       <span class="call__icon" aria-hidden="true"><svg class="icon"><use href="#i-phone"/></svg></span>
@@ -74,30 +92,49 @@
 
     <div id="car" aria-hidden="true">
       <svg class="car" viewBox="0 0 64 36" overflow="visible">
+        <defs>
+          <radialGradient id="lamp-glow"><stop offset="0" stop-color="#fffbe6"/><stop offset=".45" stop-color="#ffe9a0" stop-opacity=".85"/><stop offset="1" stop-color="#ffd86b" stop-opacity="0"/></radialGradient>
+        </defs>
         <path class="car__beam" d="M61 4 84 -6v26L61 15zM61 21l23-6v26l-23-10z" fill="#ffe7a3"/>
         <use href="#i-car"/>
+        <g class="car__lamps" fill="url(#lamp-glow)"><circle cx="60" cy="10" r="6"/><circle cx="60" cy="26" r="6"/></g>
       </svg>
+    </div>
+
+    <!-- конец дороги у домика: шашки поперёк дороги ставит JS -->
+    <div id="finish-mark" aria-hidden="true">
+      <span class="finish-line"></span>
+      <span class="road-word road-word--finish">ФИНИШ</span>
     </div>
 
     <!-- §1 Старт -->
     <section class="hero" data-scene="hero" aria-labelledby="hero-title">
-      <div class="hero__head clearing">
-        <h1 class="hero__title" id="hero-title"><span class="hero__drc">ДРЦ</span> <span class="hero__name">РЯБИНКА</span></h1>
-        <p class="hero__sub">детский развлекательный центр у дома</p>
-      </div>
       <div class="hero__box">
         <picture data-live="assets/img/hero-scene" data-live-wait="load">
           <source type="image/webp" srcset="assets/img/hero-scene.webp">
           <img class="hero__art art" src="assets/img/hero-scene.jpg" width="960" height="1280" alt="Большая игровая-коробка под небом и джунглями: дети прыгают на батуте, играют в шариках, ползают к мишке, катают машинку и рисуют" fetchpriority="high" decoding="async">
         </picture>
+        <!-- слой в координатах картинки: название аркой над коробкой с детьми -->
+        <h1 class="hero__sign" id="hero-title">
+          <span class="visually-hidden">Рябинка — детский развлекательный центр у дома</span>
+          <svg class="arch" viewBox="0 20 400 205" aria-hidden="true" focusable="false">
+            <defs>
+              <path id="arch-name" d="M-20 300A220 220 0 0 1 420 300"/>
+              <path id="arch-sub" d="M12 300A188 188 0 0 1 388 300"/>
+            </defs>
+            <path class="arch__ribbon" d="M36.8 195.2A194 194 0 0 1 363.2 195.2"/>
+            <path class="arch__stitch" d="M47.7 202.2A181 181 0 0 1 352.3 202.2"/>
+            <path class="arch__stitch" d="M25.8 188.2A207 207 0 0 1 374.2 188.2"/>
+            <text class="arch__sub"><textPath href="#arch-sub" startOffset="50%" text-anchor="middle" textLength="356" lengthAdjust="spacing">детский развлекательный центр у дома</textPath></text>
+            <text class="arch__name"><textPath href="#arch-name" startOffset="50%" text-anchor="middle" textLength="300" lengthAdjust="spacing">РЯБИНКА</textPath></text>
+          </svg>
+        </h1>
       </div>
       <div class="hero__start" data-road-stop aria-hidden="true">
-        <svg class="start-line" viewBox="0 0 64 10" preserveAspectRatio="none">
-          <rect width="64" height="10" fill="#ffffff"/>
-          <path d="M0 0h8v5H0zM16 0h8v5h-8zM32 0h8v5h-8zM48 0h8v5h-8zM8 5h8v5H8zM24 5h8v5h-8zM40 5h8v5h-8zM56 5h8v5h-8z" fill="#3a2414"/>
-        </svg>
+        <span class="road-word road-word--start">СТАРТ</span>
         <svg class="start-car" viewBox="0 0 64 36"><use href="#i-car"/></svg>
       </div>
+      <p class="scroll-hint" aria-hidden="true">Листайте вниз <svg class="icon"><use href="#i-chevron"/></svg></p>
       <span class="wp wp--m" data-road-stop data-road-lane="right" aria-hidden="true"></span>
     </section>
 
@@ -245,7 +282,7 @@
         <span class="wp wp--d" data-road-stop data-road-lane="right" aria-hidden="true"></span>
         <h2 class="title title--xl clearing lane-r" id="prices-title">Смешные цены</h2>
         <span class="rug-fx rug-fx--light" aria-hidden="true"><i></i><i></i><i></i></span>
-        <h3 class="prices__group visually-hidden">Игра в зале</h3>
+        <h3 class="prices__group clearing lane-r">Цены за игру в игровом зале</h3>
         <ul class="signs lane-r" role="list">
           <li class="sign sign--limit" data-reveal style="--i:0">
             <p class="sign__plate"><b class="sign__num" data-count-to="300">300</b><span class="sign__unit">₽</span></p>
@@ -415,17 +452,32 @@
     <section class="social" data-scene="social" aria-labelledby="social-title">
       <div class="wrap">
         <h2 class="title clearing" id="social-title">Мы в социальных сетях</h2>
-        <ul class="toy-buttons" role="list">
+        <p class="lead-note clearing">Подписывайтесь и следите за новостями</p>
+        <ul class="road-signs" role="list">
           <li data-reveal style="--i:0">
-            <a class="toy-btn toy-btn--vk" href="https://vk.ru/detsciycentr21" target="_blank" rel="noopener">
-              <span class="toy-btn__cap" aria-hidden="true"><svg class="icon"><use href="#i-vk"/></svg></span>
-              <span class="toy-btn__label">ВКонтакте</span>
+            <a class="road-sign road-sign--vk" href="https://vk.ru/detsciycentr21" target="_blank" rel="noopener">
+              <span class="road-sign__post" aria-hidden="true">
+                <svg class="road-sign__plate" viewBox="0 0 120 120">
+                  <rect x="4" y="4" width="112" height="112" rx="22" fill="#fffaf0"/>
+                  <rect x="11" y="11" width="98" height="98" rx="16" fill="#3f78b5"/>
+                  <rect x="17" y="17" width="86" height="86" rx="12" fill="none" stroke="#fffaf0" stroke-width="2" opacity=".55"/>
+                  <use href="#i-vk" x="24" y="24" width="72" height="72" fill="#ffffff"/>
+                </svg>
+              </span>
+              <span class="road-sign__label">ВКонтакте</span>
             </a>
           </li>
           <li data-reveal style="--i:1">
-            <a class="toy-btn toy-btn--ig" href="https://www.instagram.com/dtsriabinka/" target="_blank" rel="noopener">
-              <span class="toy-btn__cap" aria-hidden="true"><svg class="icon"><use href="#i-insta"/></svg></span>
-              <span class="toy-btn__label">Instagram*</span>
+            <a class="road-sign road-sign--ig" href="https://www.instagram.com/dtsriabinka/" target="_blank" rel="noopener">
+              <span class="road-sign__post" aria-hidden="true">
+                <svg class="road-sign__plate" viewBox="0 0 120 120">
+                  <path d="M60 10 114 104H6z" fill="#fffaf0" stroke="#fffaf0" stroke-width="14" stroke-linejoin="round"/>
+                  <path d="M60 10 114 104H6z" fill="#c2331d" stroke="#c2331d" stroke-width="4" stroke-linejoin="round"/>
+                  <path d="M60 34 93 92H27z" fill="#fffdf8" stroke="#fffdf8" stroke-width="5" stroke-linejoin="round"/>
+                  <use href="#i-insta" x="42" y="54" width="36" height="36" fill="none" stroke="#2a170d" stroke-width="2.3"/>
+                </svg>
+              </span>
+              <span class="road-sign__label">Instagram*</span>
             </a>
           </li>
         </ul>
@@ -448,7 +500,10 @@
           <img src="assets/img/service-play.jpg" width="960" height="720" alt="Дети на ковре с дорогой: мальчик катает машинку, девочка рисует, малыш обнимает мишку" loading="lazy" decoding="async">
         </picture>
       </div>
-      <p class="sheet__text">Ковёр с дорогой, мягкие игрушки, машинки и рисование</p>
+      <div class="sheet__text">
+        <p>Просторный игровой зал, где каждому найдётся занятие по душе: катать машинки по ковру с нарисованной дорогой, обниматься с мягкими игрушками и рисовать.</p>
+        <p>Игрушек много, из дома ничего брать не нужно — хватит на всех. Пока ребёнок играет под присмотром, Вы можете спокойно заняться своими делами.</p>
+      </div>
     </div>
   </dialog>
 
@@ -465,7 +520,10 @@
           <img src="assets/img/service-trampoline.jpg" width="960" height="720" alt="Ребёнок прыгает на круглом батуте с сеткой" loading="lazy" decoding="async">
         </picture>
       </div>
-      <p class="sheet__text">Прыгать, смеяться и снова прыгать</p>
+      <div class="sheet__text">
+        <p>Прыгать, смеяться и снова прыгать! На батуте дети выплёскивают энергию, тренируют ловкость и равновесие и заводят новых друзей.</p>
+        <p>Можно взять час игры или безлимит — а когда ноги устанут, в зале найдётся, чем заняться дальше.</p>
+      </div>
     </div>
   </dialog>
 
@@ -482,7 +540,10 @@
           <img src="assets/img/service-balls.jpg" width="960" height="720" alt="Дети в надувном бассейне с шариками: подбрасывают шарики и ныряют" loading="lazy" decoding="async">
         </picture>
       </div>
-      <p class="sheet__text">Надувной бассейн, полный разноцветных шариков</p>
+      <div class="sheet__text">
+        <p>Надувной бассейн, полный разноцветных шариков: в нём можно нырять, прятаться с головой, подбрасывать шарики и устраивать весёлые шариковые сражения.</p>
+        <p>Бассейн мягкий, поэтому даже малыши играют в нём смело и с удовольствием.</p>
+      </div>
     </div>
   </dialog>
 </body>

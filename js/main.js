@@ -149,6 +149,7 @@
           : Math.max(points[k2].y, sy[k2 - 1]));
       }
 
+      placeFinish(endIdx);
       root.classList.add('road-ready');
       // без движения едущую машинку не ставим: на старте стоит неподвижная .start-car (одна на странице)
       if (!motionOK) return;
@@ -157,6 +158,24 @@
       current = clamp(current, 0, parkLen);
       place(current);
       tick();
+    }
+
+    // шашки финиша — поперёк дороги перед её концом (машинка паркуется сразу за ними и их не закрывает),
+    // слово «ФИНИШ» — на асфальте ещё чуть раньше
+    function placeFinish(endIdx) {
+      var mark = $('#finish-mark');
+      if (!mark) return;
+      var rw = roadWidth();
+      var l = Math.max(0, cum[endIdx] - rw * 1.5);
+      var p = path.getPointAtLength(l);
+      var b = path.getPointAtLength(Math.max(0, l - 4));
+      var ang = Math.atan2(p.y - b.y, p.x - b.x);
+      var w = path.getPointAtLength(Math.max(0, l - rw * .95));
+      mark.style.setProperty('--fx', p.x.toFixed(1) + 'px');
+      mark.style.setProperty('--fy', p.y.toFixed(1) + 'px');
+      mark.style.setProperty('--fa', (ang * 180 / Math.PI - 90).toFixed(1) + 'deg');
+      mark.style.setProperty('--wx', w.x.toFixed(1) + 'px');
+      mark.style.setProperty('--wy', w.y.toFixed(1) + 'px');
     }
 
     function targetLength() {
@@ -184,13 +203,23 @@
       car.classList.toggle('is-home', l > homeLen + 1);
     }
 
+    // на ходу — помаргивает фарами; гасим с задержкой, чтобы фары не дёргались на коротких остановках
+    var driveTimer = 0;
+    function driving(on) {
+      if (!car) return;
+      clearTimeout(driveTimer);
+      if (on) car.classList.add('is-driving');
+      else driveTimer = setTimeout(function () { car.classList.remove('is-driving'); }, 500);
+    }
+
     function tick() {
       if (raf) return;
       raf = requestAnimationFrame(function step() {
         raf = 0;
         if (document.hidden) return;
         var diff = target - current;
-        if (Math.abs(diff) < 0.4) { current = target; place(current); return; }
+        if (Math.abs(diff) < 0.4) { current = target; place(current); driving(false); return; }
+        if (Math.abs(diff) > 2) driving(true);
         current += diff * 0.14;
         place(current);
         raf = requestAnimationFrame(step);
@@ -210,10 +239,12 @@
       }, { passive: true });
       document.addEventListener('visibilitychange', function () { if (!document.hidden) tick(); });
     }
-    window.addEventListener('resize', schedule);
     window.addEventListener('load', schedule);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
+    // ковёр меняет размер — пересобираем дорогу. На телефоне window.resize приходит на каждое
+    // скрытие/показ адресной строки во время прокрутки, а ширина ковра при этом не меняется
     if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(rug);
+    else window.addEventListener('resize', schedule);
     build();
   }
 
@@ -438,6 +469,7 @@
           source.setAttribute('sizes', sizes);
           source.setAttribute('srcset', loop);
           playing.push(pic);
+          try { pic.dispatchEvent(new CustomEvent('liveready')); } catch (_) {}
         }
         if (typeof pre.decode === 'function') pre.decode().then(apply, function () {});
         else pre.onload = apply;
@@ -448,8 +480,10 @@
     }
 
     var lazy = [];
+    var hero = null;
     pics.forEach(function (pic) {
       if (pic.getAttribute('data-live-wait') === 'load') {
+        hero = pic;
         if (document.readyState === 'complete') play(pic);
         else window.addEventListener('load', function () { play(pic); });
       } else lazy.push(pic);
@@ -468,6 +502,35 @@
     }
 
     if (!lazy.length || !('IntersectionObserver' in window)) return;
+    // остальные циклы ждут, пока скачается цикл первого экрана: на слабом интернете он не делит канал
+    // с картинками ниже (запасной выход — через 3 с после load, если цикл первого экрана так и не встал)
+    var scrolled = false;
+    var started = false;
+    window.addEventListener('scroll', function onFirstScroll() {
+      scrolled = true;
+      window.removeEventListener('scroll', onFirstScroll);
+    }, { passive: true });
+    function start() {
+      if (started) return;
+      started = true;
+      if (scrolled) { watch({ rootMargin: '100% 0px 100% 0px' }); return; }
+      // до прокрутки — только картинки, видимые хотя бы наполовину (первый экран не качает анимаций ниже)
+      var first = watch({ threshold: 0.5 });
+      function armed() {
+        window.removeEventListener('scroll', armed);
+        first.disconnect();
+        watch({ rootMargin: '100% 0px 100% 0px' });
+      }
+      // картинка в закрытом <dialog> не видна наблюдателю — оживает, когда окно открыли
+      window.addEventListener('scroll', armed, { passive: true });
+    }
+    if (hero) {
+      hero.addEventListener('liveready', start);
+      var later = function () { setTimeout(start, 3000); };
+      if (document.readyState === 'complete') later();
+      else window.addEventListener('load', later);
+    } else start();
+
     function watch(options) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
@@ -479,15 +542,37 @@
       lazy.forEach(function (pic) { if (!pic._live) io.observe($('img', pic)); });
       return io;
     }
-    // до прокрутки — только картинки, видимые хотя бы наполовину (первый экран не качает анимаций ниже)
-    var first = watch({ threshold: 0.5 });
-    function armed() {
-      window.removeEventListener('scroll', armed);
-      first.disconnect();
-      watch({ rootMargin: '100% 0px 100% 0px' });
+  }
+
+  /* ---------- Заставка: только при первом входе; держится, пока не ожил первый экран,
+     и ещё 2 с, чтобы догрузились картинки ниже (не меньше 3,2 с и не дольше 8 с) ---------- */
+  function initSplash() {
+    var splash = $('#splash');
+    if (!splash) return;
+    if (!motionOK || root.classList.contains('splash-seen')) { splash.parentNode.removeChild(splash); return; }
+    var t0 = performance.now();
+    var gone = false;
+    root.classList.add('is-splash');
+    function hide() {
+      if (gone) return;
+      gone = true;
+      try { localStorage.setItem('ryabinka-splash', '1'); } catch (_) {}
+      setTimeout(function () {
+        root.classList.remove('is-splash');
+        splash.classList.add('is-gone');
+        setTimeout(function () { if (splash.parentNode) splash.parentNode.removeChild(splash); }, 700);
+      }, Math.max(2000, 3200 - (performance.now() - t0)));
     }
-    // картинка в закрытом <dialog> не видна наблюдателю — оживает, когда окно открыли
-    window.addEventListener('scroll', armed, { passive: true });
+    setTimeout(hide, 6000);
+    var hero = $('picture[data-live-wait="load"]');
+    var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    // без цикла (экономия трафика, нет картинки) ждать нечего, кроме загрузки страницы
+    if (!hero || (conn && conn.saveData)) {
+      if (document.readyState === 'complete') hide();
+      else window.addEventListener('load', hide);
+      return;
+    }
+    hero.addEventListener('liveready', hide);
   }
 
   /* ---------- Игрушки откатываются от пальца ---------- */
@@ -535,17 +620,29 @@
     var hero = $('.hero');
     if (!hero) return;
     var on = null;
+    var edge = 0;          // высота героя меряется при изменении размеров, а не на каждой прокрутке
+    function measure() { edge = hero.offsetHeight * 0.55; update(); }
     function update() {
-      var next = window.pageYOffset > hero.offsetHeight * 0.55;
+      var next = window.pageYOffset > edge;
       if (next !== on) { on = next; root.classList.toggle('dock-compact', on); }
     }
     window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    update();
+    if ('ResizeObserver' in window) new ResizeObserver(measure).observe(hero);
+    else window.addEventListener('resize', measure);
+    measure();
+  }
+
+  /* ---------- Анимации секций за экраном стоят на паузе: телефон не крутит их впустую ---------- */
+  function initOffscreenPause() {
+    if (!motionOK || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { e.target.classList.toggle('is-off', !e.isIntersecting); });
+    }, { rootMargin: '25% 0px 25% 0px' });
+    $$('section[data-scene]').forEach(function (s) { io.observe(s); });
   }
 
   function init() {
-    [initLiveImages, initImageFallbacks, initReveals, initCounters, initRoad, initDialogs, initReviews, initToyNudge, initDock].forEach(function (fn) {
+    [initSplash, initLiveImages, initImageFallbacks, initReveals, initCounters, initRoad, initDialogs, initReviews, initToyNudge, initDock, initOffscreenPause].forEach(function (fn) {
       try { fn(); } catch (err) { if (window.console && console.warn) console.warn('[rug]', fn.name, err); }
     });
   }
