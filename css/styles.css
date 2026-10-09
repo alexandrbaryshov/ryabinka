@@ -490,33 +490,6 @@ section {
   height: 100px;
   margin: -44px calc(-1 * var(--gutter)) 0 auto;
 }
-/* подсказка «Листайте вниз»: внизу первого экрана (над полоской звонка), но не ниже конца сцены */
-.scroll-hint {
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  top: calc(100% - 64px);
-  top: min(100svh - 150px, 100% - 64px);
-  translate: -50% 0;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 5px 10px 5px 14px;
-  border-radius: 999px;
-  background: var(--clearing-soft);
-  box-shadow: 0 6px 12px -8px rgba(90, 58, 30, .5);
-  color: var(--ink-soft);
-  font-size: .9375rem;
-  font-weight: 650;
-  white-space: nowrap;
-  pointer-events: none;
-}
-.scroll-hint .icon { width: 18px; height: 18px; rotate: 90deg; stroke-width: 2.8; }
-.motion .scroll-hint { animation: hint-in .6s var(--ease-out) 1.4s both; }
-.motion .scroll-hint .icon { animation: hint-bob 1.4s ease-in-out 2s infinite; }
-@keyframes hint-in { from { opacity: 0; transform: translateY(8px); } }
-@keyframes hint-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 4px; } }
-
 /* слово-разметка: белые буквы на табличке поперёк дороги */
 .road-word {
   display: block;
@@ -1379,10 +1352,7 @@ section.is-off *, section.is-off *::before, section.is-off *::after { animation-
   .hero { padding: 0; }
   .hero__box { margin: 0 auto; max-width: 1680px; aspect-ratio: 960 / 1040; }
   /* старт на оси правой полосы: середина поля справа от колонки, но не ближе полудороги к краю */
-  .hero__start { margin: -48px max(0px, (100% - var(--wrap)) / 4 - var(--road-w) / 2 - 6px) 0 auto; }
-  /* сцена во всю ширину: подсказка не по центру (там дети), а у левого края, на бортике коробки */
-  .scroll-hint { left: 24px; translate: none; }
-  .road-signs { padding-right: 0; }
+  .hero__start { margin: -48px max(0px, (100% - var(--wrap)) / 4 - var(--road-w) / 2 - 6px) 0 auto; }  .road-signs { padding-right: 0; }
   .signs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .review { flex-basis: 62%; }
   .billboard__badge { right: -4px; } /* не заходит на дорогу в поле */
@@ -1424,9 +1394,7 @@ section.is-off *, section.is-off *::before, section.is-off *::after { animation-
   /* сцена ниже: верх неба срезан, коробка с детьми поднимается в первый экран, над ней — арка с названием */
   .hero__box { aspect-ratio: 21 / 20; }
   /* картинка здесь крупнее арки: арка выше, чтобы концы ленты не легли на детей у бортиков */
-  .arch { bottom: 48%; }
-  .scroll-hint { top: min(100svh - 72px, 100% - 64px); font-size: 1rem; }
-  /* старт — под правой стенкой коробки: дорога уходит вправо, мимо заголовка услуг */
+  .arch { bottom: 48%; }  /* старт — под правой стенкой коробки: дорога уходит вправо, мимо заголовка услуг */
   .hero__start { width: 92px; margin: -48px 15% 0 auto; }
 
   .services { padding-top: 56px; }
